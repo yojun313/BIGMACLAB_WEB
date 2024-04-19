@@ -134,7 +134,6 @@
             const keyword = document.getElementById('keywordInput').value;
             const uploadToDrive = document.querySelector('input[name="yesNo"]:checked') ? document.querySelector('input[name="yesNo"]:checked').value : null; // Added radio button value
             socket.emit('crawlInfo_submit', { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive }); // Added uploadToDrive
-            
         });
 
         document.getElementById('dashboardBtn').addEventListener('click', () => {
