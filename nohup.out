@@ -3,3 +3,27 @@
   au1
 Token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTI5OTgzMDIsImV4cCI6MTcxMzAwMTkwMn0.EHPz96N1FXXG_IwHq8p8oV8Ju2xYFeTNggAJ2D0EjzI'
 }
+node:internal/modules/cjs/loader:1146
+  throw err;
+  ^
+
+Error: Cannot find module 'express'
+Require stack:
+- C:\Users\User\Documents\GitHub\BIGMACLAB_WEB\CRAWLER_WEB_fast.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1143:15)
+    at Module._load (node:internal/modules/cjs/loader:984:27)
+    at Module.require (node:internal/modules/cjs/loader:1231:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (C:\Users\User\Documents\GitHub\BIGMACLAB_WEB\CRAWLER_WEB_fast.js:1:17)
+    at Module._compile (node:internal/modules/cjs/loader:1369:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1427:10)
+    at Module.load (node:internal/modules/cjs/loader:1206:32)
+    at Module._load (node:internal/modules/cjs/loader:1022:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\User\\Documents\\GitHub\\BIGMACLAB_WEB\\CRAWLER_WEB_fast.js'
+  ]
+}
+
+Node.js v20.12.2
