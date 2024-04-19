@@ -22,26 +22,26 @@ app.get('/', (req, res) => {
 });
 
 app.get('/team', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'team.html'))
+    res.sendFile(path.join(__dirname, 'public', 'homepage_team.html'))
 })
 
 app.get('/publications', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'publications.html'))
+    res.sendFile(path.join(__dirname, 'public', 'homepage_publications.html'))
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'))
+    res.sendFile(path.join(__dirname, 'public', 'homepage_login.html'))
 });
 
 function ensureAuthenticated(req, res, next) {
     console.log('Cookies:', req.cookies); // 쿠키 로깅
     const token = req.cookies.authToken;
     if (!token) {
-        return res.status(401).send("homepage에서 발생: Access Denied: No token provided.");
+        return res.status(401).send("Access Denied: No token provided.");
     }
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
         if (err) {
-            return res.status(403).send("homepage에서 발생: Access Denied: Invalid token.");
+            return res.status(403).send("Access Denied: Invalid token.");
         }
         req.user = decoded;
         next();
@@ -72,7 +72,7 @@ app.post('/login', (req, res) => {
             sameSite: 'Lax',  // Strict 또는 Lax를 사용할 수 있음
             path: '/'
         });
-        res.json({ redirect: "/dashboard.html" });
+        res.json({ redirect: "/homepage_dashboard.html" });
     } else {
         res.status(401).send('Authentication failed');
     }

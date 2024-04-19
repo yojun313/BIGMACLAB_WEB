@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>크롤링 이력</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e9ecef;
+            margin-bottom: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 5px solid #0056b3;
+        }
+
+        li:nth-child(even) {
+            border-left-color: #ff4500;
+        }
+
+        li span {
+            font-weight: bold;
+        }
+
+            /* Existing styles... */
+        button.delete-btn {
+            background-color: #ff4d4d; /* Red background */
+            color: white; /* White text */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button.delete-btn:hover {
+            background-color: #ff3333; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>크롤링 이력</h1>
+        <ul id="crawlList"></ul>
+    </div>
+    <script>
+        
+        function getCrawlObjectName(crawl_object) {
+            switch(crawl_object) {
+                case '1': return '네이버뉴스';
+                case '2': return '네이버블로그';
+                case '3': return '유튜브';  
+            }
+        }
+
+        function getOptionName(option) {
+            switch(option) {
+                case '1': return '기사';
+                case '2': return '기사 + 댓글'
+                case '3': return '기사 + 댓글 + 대댓글'
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/getHistoryData')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('crawlList');
+                    data.forEach((item, index) => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<span>키워드:</span> ${item.keyword}<br>
+                                              <span>요청자:</span> ${item.name}<br>
+                                              <span>크롤링 대상:</span> ${getCrawlObjectName(item.crawl_object)}<br>
+                                              <span>크롤링 옵션:</span> ${getOptionName(item.option_select)}<br>
+                                              <span>시작일:</span> ${item.start_day}<br>
+                                              <span>종료일:</span> ${item.end_day}<br>
+                                              <span>드라이브 업로드:</span> ${item.uploadToDrive}<br><br>
+                                              <button class='delete-btn' onclick="deleteRecord(${index})">삭제</button>`;
+                        list.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error loading the data:', error));
+        });
+    
+        function deleteRecord(index) {
+            if (confirm('삭제하시겠습니까?')) { // Confirmation dialog
+                fetch(`/deleteHistory?index=${index}`, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            location.reload(); // Reload the page to update the list
+                        } else {
+                            alert('Error deleting the record.');
+                        }
+                    })
+                    .catch(error => {
+                    console.error('Error deleting the record:', error);
+                    alert('Error deleting the record.');
+                });
+            }
+        }
+    </script>    
+</body>
+</html>

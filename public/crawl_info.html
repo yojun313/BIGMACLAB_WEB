@@ -96,6 +96,7 @@
                 <div class="btn-group">
                     <button id="runBtn" class="btn btn-custom">크롤링 시작</button>
                     <button type="button" id="dashboardBtn" class="btn btn-custom">대쉬보드</button>
+                    <button type="button" id="historyBtn" class="btn btn-custom">크롤링 이력</button>
                 </div>
             </div>
         </form>
@@ -139,6 +140,10 @@
 
         document.getElementById('dashboardBtn').addEventListener('click', () => {
             window.location.href = 'http://bigmaclab-crawler.kro.kr:3000/crawl_process.html'; // Replace 'YOUR_DASHBOARD_URL' with the actual URL
+        });
+
+        document.getElementById('historyBtn').addEventListener('click', () => {
+            window.location.href = 'http://bigmaclab-crawler.kro.kr:3000/history'; // Replace 'YOUR_DASHBOARD_URL' with the actual URL
         });
 
 
