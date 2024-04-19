@@ -110,8 +110,8 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 3001;
 server.listen(PORT, () => {
     console.log('[ CRAWLER WEB 서버 ]')
-    console.log(`- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다`);
+    console.log(`- 서버가 http://bigmaclab-crawler.kro.kr:3001 에서 실행 중입니다`);
 });
