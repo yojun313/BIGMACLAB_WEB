@@ -1,5 +1,5 @@
 [ CRAWLER WEB 서버 ]
-- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
+- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
   au1
 Token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTI5OTgzMDIsImV4cCI6MTcxMzAwMTkwMn0.EHPz96N1FXXG_IwHq8p8oV8Ju2xYFeTNggAJ2D0EjzI'
 }
@@ -52,7 +52,7 @@ Require stack:
 
 Node.js v20.12.2
 [ CRAWLER WEB 서버 ]
-- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
+- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
   authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTM1NTYxNjUsImV4cCI6MTcxMzU1OTc2NX0.oa0p5oNe42FgswnlCJ2nf7CJOPSfEFc0zUwXgtJHS5M'
 }
 [ CRAWLER WEB 서버 ]
