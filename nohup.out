@@ -63,3 +63,16 @@ Node.js v20.12.2
 - 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다
 [ CRAWLER WEB 서버 ]
 - 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다
+[ 홈페이지 서버 ]
+서버가 http://bigmaclab.kro.kr:112/ 에서 실행 중입니다
+Cookies: {
+  authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTM4MDI3NjAsImV4cCI6MTcxMzgwNjM2MH0.E2I_c0w2IBk-tlEiF_-djpZaOXaBqbMRI34HdSmBjnY'
+}
+Cookies: {
+  authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTM4NzU3NzQsImV4cCI6MTcxMzg3OTM3NH0.VLFcsBrSuXBh_EOepsrZ99rvTizUKt8s3YTIjbd_0kA'
+}
+[ 홈페이지 서버 ]
+서버가 http://bigmaclab.kro.kr:112/ 에서 실행 중입니다
+��니다
+[ CRAWLER WEB 서버 ]
+- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다
