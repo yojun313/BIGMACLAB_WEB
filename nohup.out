@@ -75,4 +75,10 @@ Cookies: {
 서버가 http://bigmaclab.kro.kr:112/ 에서 실행 중입니다
 ��니다
 [ CRAWLER WEB 서버 ]
-- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다
+- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
+  authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTU2MDMyMDQsImV4cCI6MTcxNTYwNjgwNH0.3hhmn3EWW2TRCbCXWGHRFSUVpQnEaDd2y0TyXFSGlbo'
+}
+[ CRAWLER WEB 서버 ]
+- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중�Cookies: {
+  authToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjAzMDQiLCJpYXQiOjE3MTY1MTg0MzMsImV4cCI6MTcxNjUyMjAzM30.XxAlRw8gu5YNRnJHKvsa_A-vw6uRODwGZKuCHvqFeqg'
+}
