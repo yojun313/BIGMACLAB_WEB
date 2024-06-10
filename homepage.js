@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
 const cookieParser = require('cookie-parser');
-const PORT = 112;
+const PORT = 80;
 
 SECRET_KEY = "1234";
 
@@ -85,5 +85,5 @@ app.post('/login', (req, res) => {
 // 서버 시작
 app.listen(PORT, () => {
     console.log('[ 홈페이지 서버 ]')
-    console.log(`서버가 http://bigmaclab.kro.kr:112/ 에서 실행 중입니다`);
+    console.log(`서버가 http://bigmaclab.kro.kr:80/ 에서 실행 중입니다`);
 });
