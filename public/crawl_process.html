@@ -97,6 +97,12 @@
                 processElement = document.createElement('div');
                 processElement.id = `process-${data.processId}`;
                 processElement.classList.add('col-12', 'mb-3');
+
+                let crawlOption = getOptionName(data.option_select);
+                if (getCrawlObjectName(data.crawl_object) === "유튜브") {
+                    crawlOption = "영상 + 댓글";
+                }
+
                 processElement.innerHTML = `
                     <div class="card">
                         <div class="card-body">
@@ -105,7 +111,7 @@
                                 ProcessID: ${data.processId}<br>
                                 요청자: ${data.name}<br>
                                 크롤링 대상: ${getCrawlObjectName(data.crawl_object)}<br>
-                                크롤링 옵션: ${getOptionName(data.option_select)}<br>
+                                크롤링 옵션: ${crawlOption}<br>
                                 시작일: ${data.start_day}<br>
                                 종료일: ${data.end_day}<br>
                                 드라이브 업로드: ${data.uploadToDrive}
