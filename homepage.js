@@ -5,7 +5,8 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
 const cookieParser = require('cookie-parser');
-const PORT = 80;
+const https = require('https');
+const PORT = 443;
 
 SECRET_KEY = "1234";
 
@@ -15,6 +16,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+var options = {
+    key: fs.readFileSync('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/public/ssl.key', 'utf8'),
+    cert: fs.readFileSync('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/public/ssl.crt', 'utf8'),
+    ca: [
+        fs.readFileSync('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/public/chain_ssl.crt', 'utf8'),
+        fs.readFileSync('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/public/chain_all_ssl.crt', 'utf8')
+    ],
+    passphrase: 'bigmaclab2022!'
+};
 
 // 메인 페이지 라우트
 app.get('/', (req, res) => {
@@ -60,7 +70,6 @@ app.get('/link3', ensureAuthenticated, (req, res) => {
     res.send('This is Link 3, only for authenticated users.');
 });
 
-
 app.post('/login', (req, res) => {
     const usersPath = path.join(__dirname, 'public', 'users.json');
     const users = JSON.parse(fs.readFileSync(usersPath, 'utf8'));
@@ -78,12 +87,8 @@ app.post('/login', (req, res) => {
     }
 });
 
-
-
-
-
-// 서버 시작
-app.listen(PORT, () => {
+// HTTPS 서버 시작
+https.createServer(options, app).listen(PORT, () => {
     console.log('[ 홈페이지 서버 ]')
-    console.log(`서버가 http://bigmaclab.kro.kr:80/ 에서 실행 중입니다`);
+    console.log(`서버가 https://knpu.re.kr:${PORT}/ 에서 실행 중입니다`);
 });
