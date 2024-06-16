@@ -100,7 +100,14 @@
 
                 let crawlOption = getOptionName(data.option_select);
                 if (getCrawlObjectName(data.crawl_object) === "유튜브") {
-                    crawlOption = "영상 + 댓글";
+                    if (crawlOption == '기사')
+                    {
+                        crawlOption = "영상정보 + 댓글 (댓글 100개 제한)";
+                    }
+                    else if (crawlOption == '기사 + 댓글')
+                    {
+                        crawlOption = "영상정보 + 댓글 (댓글 무제한 --> API 사용량 주의)";
+                    }
                 }
 
                 processElement.innerHTML = `
