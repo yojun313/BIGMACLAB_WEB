@@ -93,6 +93,4 @@ app.post('/login', (req, res) => {
 
 // HTTPS 서버 시작
 https.createServer(options, app).listen(PORT, () => {
-    console.log('[ 홈페이지 서버 ]');
-    console.log(`서버가 https://knpu.re.kr:${PORT}/ 에서 실행 중입니다`);
 });

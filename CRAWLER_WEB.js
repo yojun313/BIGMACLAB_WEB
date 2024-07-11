@@ -100,6 +100,4 @@ io.on('connection', (socket) => {
 
 const PORT = 3000;
 server.listen(PORT, () => {
-    console.log('[ CRAWLER WEB 서버 ]')
-    console.log(`- 서버가 http://bigmaclab-crawler.kro.kr:3000 에서 실행 중입니다`);
 });
