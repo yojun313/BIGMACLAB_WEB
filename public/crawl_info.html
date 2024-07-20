@@ -53,9 +53,12 @@
             <div class="mb-3">
                 <label for="crawlTargetSelect" class="form-label">크롤링 대상을 입력하세요</label>
                 <select class="form-select" id="crawlTargetSelect">
-                    <option value="1">1. 네이버뉴스</option>
-                    <option value="2">2. 네이버블로그</option>
-                    <option value="3">3. 유튜브</option>
+                    <option value="1">1. Naver News</option>
+                    <option value="2">2. Naver Blog</option>
+                    <option value="3">2. Naver Cafe</option>
+                    <option value="4">3. YouTube</option>
+                    <option value="5">4. ChinaDaily</option>
+                    <option value="6">5. China Sina</option>
                 </select>
             </div>
 
@@ -126,21 +129,30 @@
 
             if (targetValue === '1') {
                 options = [
-                    { value: '1', text: '1. 기사' },
-                    { value: '2', text: '2. 기사 + 댓글' },
-                    { value: '3', text: '3. 기사 + 댓글 + 대댓글' }
+                    { value: '1', text: '1. 기사 + 댓글' },
+                    { value: '2', text: '2. 기사 + 댓글 & 대댓글' }
                 ];
-            } else if (targetValue === '2') {
+            } else if (targetValue === '2' || targetValue === '3') {
                 options = [
                     { value: '1', text: '1. 본문' },
-                    { value: '2', text: '2. 본문 + 댓글' }
+                    { value: '2', text: '2. 본문 + 댓글&대댓글' }
                 ];
-            } else if (targetValue === '3') {
+            } else if (targetValue === '4') {
                 options = [
-                    { value: '1', text: '1. 영상 정보 + 댓글 (댓글 100개 제한)' },
-                    { value: '1', text: '2. 영상 정보 + 댓글 (댓글 무제한 --> API 사용량 주의)' }
+                    { value: '1', text: '1. 영상 정보 + 댓글&대댓글 (100개 제한)' },
+                    { value: '2', text: '2. 영상 정보 + 댓글&대댓글 (무제한)' }
+                ];
+            } else if (targetValue === '5') {
+                options = [
+                    { value: '1', text: '1. 기사' },
+                ];
+            } else if (targetValue === '6') {
+                options = [
+                    { value: '1', text: '1. 기사' },
+                    { value: '2', text: '2. 기사 + 댓글' }
                 ];
             }
+            
 
             options.forEach(option => {
                 const opt = document.createElement('option');
