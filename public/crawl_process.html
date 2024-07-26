@@ -77,17 +77,61 @@
 
         function getCrawlObjectName(crawl_object) {
             switch(crawl_object) {
-                case '1': return '네이버뉴스';
-                case '2': return '네이버블로그';
-                case '3': return '유튜브';  
+                case '1': return 'Naver News';
+                case '2': return 'Naver Blog';
+                case '3': return 'Naver Cafe';  
+                case '4': return 'YouTube'; 
+                case '5': return 'ChinaDaily'; 
+                case '6': return 'ChinaSina'; 
             }
         }
 
-        function getOptionName(option) {
-            switch(option) {
-                case '1': return '기사';
-                case '2': return '기사 + 댓글'
-                case '3': return '기사 + 댓글 + 대댓글'
+        function getOptionName(CrawlObject, option) {
+            switch(CrawlObject) {
+                case '1': 
+                    switch(option) {
+                        case '1':
+                            return '1. 기사 + 댓글'
+                        case '2':
+                            return '2. 기사 + 댓글/대댓글'
+                    }
+                case '2': 
+                    switch(option) {
+                        case '1':
+                            return '1. 블로그 본문'
+                        case '2':
+                            return '2. 블로그 본문 + 댓글/대댓글'
+                    }
+
+                case '3': 
+                    switch(option) {
+                        case '1':
+                            return '1. 카페 본문'
+                        case '2':
+                            return '2. 카페 본문 + 댓글/대댓글'
+                    }
+
+                case '4': 
+                    switch(option) {
+                        case '1':
+                            return '1. 영상 정보 + 댓글/대댓글 (100개 제한)'
+                        case '2':
+                            return '2. 영상 정보 + 댓글/대댓글 (무제한)'
+                    }
+
+                case '5': 
+                    switch(option) {
+                        case '1':
+                            return '1. 기사'
+                    }
+
+                case '6': 
+                    switch(option) {
+                        case '1':
+                            return '1. 기사'
+                        case '2':
+                            return '2. 기사 + 댓글'
+                    }
             }
         }
 
@@ -98,18 +142,6 @@
                 processElement.id = `process-${data.processId}`;
                 processElement.classList.add('col-12', 'mb-3');
 
-                let crawlOption = getOptionName(data.option_select);
-                if (getCrawlObjectName(data.crawl_object) === "유튜브") {
-                    if (crawlOption == '기사')
-                    {
-                        crawlOption = "영상정보 + 댓글 (댓글 100개 제한)";
-                    }
-                    else if (crawlOption == '기사 + 댓글')
-                    {
-                        crawlOption = "영상정보 + 댓글 (댓글 무제한 --> API 사용량 주의)";
-                    }
-                }
-
                 processElement.innerHTML = `
                     <div class="card">
                         <div class="card-body">
@@ -118,10 +150,10 @@
                                 ProcessID: ${data.processId}<br>
                                 요청자: ${data.name}<br>
                                 크롤링 대상: ${getCrawlObjectName(data.crawl_object)}<br>
-                                크롤링 옵션: ${crawlOption}<br>
+                                크롤링 옵션: ${getOptionName(data.crawl_object, data.option_select)}<br>
                                 시작일: ${data.start_day}<br>
                                 종료일: ${data.end_day}<br>
-                                드라이브 업로드: ${data.uploadToDrive}
+                                크롤데이터 메일 수신: ${data.uploadToDrive}
                             </p>
                             <p class="card-text"><small class="text-muted">${data.output}</small></p>
                         </div>
