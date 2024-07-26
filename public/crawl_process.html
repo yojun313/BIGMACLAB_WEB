@@ -91,46 +91,46 @@
                 case '1': 
                     switch(option) {
                         case '1':
-                            return '1. 기사 + 댓글'
+                            return '기사 + 댓글'
                         case '2':
-                            return '2. 기사 + 댓글/대댓글'
+                            return '기사 + 댓글/대댓글'
                     }
                 case '2': 
                     switch(option) {
                         case '1':
-                            return '1. 블로그 본문'
+                            return '블로그 본문'
                         case '2':
-                            return '2. 블로그 본문 + 댓글/대댓글'
+                            return '블로그 본문 + 댓글/대댓글'
                     }
 
                 case '3': 
                     switch(option) {
                         case '1':
-                            return '1. 카페 본문'
+                            return '카페 본문'
                         case '2':
-                            return '2. 카페 본문 + 댓글/대댓글'
+                            return '카페 본문 + 댓글/대댓글'
                     }
 
                 case '4': 
                     switch(option) {
                         case '1':
-                            return '1. 영상 정보 + 댓글/대댓글 (100개 제한)'
+                            return '영상 정보 + 댓글/대댓글 (100개 제한)'
                         case '2':
-                            return '2. 영상 정보 + 댓글/대댓글 (무제한)'
+                            return '영상 정보 + 댓글/대댓글 (무제한)'
                     }
 
                 case '5': 
                     switch(option) {
                         case '1':
-                            return '1. 기사'
+                            return '기사'
                     }
 
                 case '6': 
                     switch(option) {
                         case '1':
-                            return '1. 기사'
+                            return '기사'
                         case '2':
-                            return '2. 기사 + 댓글'
+                            return '기사 + 댓글'
                     }
             }
         }
@@ -153,7 +153,7 @@
                                 크롤링 옵션: ${getOptionName(data.crawl_object, data.option_select)}<br>
                                 시작일: ${data.start_day}<br>
                                 종료일: ${data.end_day}<br>
-                                크롤데이터 메일 수신: ${data.uploadToDrive}
+                                데이터 수신: ${data.uploadToDrive}
                             </p>
                             <p class="card-text"><small class="text-muted">${data.output}</small></p>
                         </div>
