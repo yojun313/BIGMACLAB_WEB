@@ -92,6 +92,7 @@ io.on('connection', (socket) => {
         const processId = data.processId;
         if (processes[processId]) {
             processes[processId].terminate();
+            processes[processId].postMessage('terminate');
             delete processes[processId];
             io.emit('process_terminated', processId);
         }

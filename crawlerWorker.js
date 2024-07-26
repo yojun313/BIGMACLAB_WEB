@@ -47,3 +47,9 @@ pythonProcess.on('close', (code) => {
         });
     });
 });
+
+parentPort.on('message', (message) => {
+    if (message === 'terminate') {
+        pythonProcess.kill('SIGINT');
+    }
+});
