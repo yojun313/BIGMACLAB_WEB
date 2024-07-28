@@ -73,17 +73,61 @@
         
         function getCrawlObjectName(crawl_object) {
             switch(crawl_object) {
-                case '1': return '네이버뉴스';
-                case '2': return '네이버블로그';
-                case '3': return '유튜브';  
+                case '1': return 'Naver News';
+                case '2': return 'Naver Blog';
+                case '3': return 'Naver Cafe';
+                case '4': return 'YouTube';
+                case '5': return 'ChinaDaily';
+                case '6': return 'ChinaSina';
             }
         }
 
-        function getOptionName(option) {
-            switch(option) {
-                case '1': return '기사';
-                case '2': return '기사 + 댓글'
-                case '3': return '기사 + 댓글 + 대댓글'
+        function getOptionName(CrawlObject, option) {
+            switch(CrawlObject) {
+                case '1':
+                    switch(option) {
+                        case '1':
+                            return '기사 + 댓글'
+                        case '2':
+                            return '기사 + 댓글/대댓글'
+                    }
+                case '2':
+                    switch(option) {
+                        case '1':
+                            return '블로그 본문'
+                        case '2':
+                            return '블로그 본문 + 댓글/대댓글'
+                    }
+
+                case '3':
+                    switch(option) {
+                        case '1':
+                            return '카페 본문'
+                        case '2':
+                            return '카페 본문 + 댓글/대댓글'
+                    }
+
+                case '4':
+                    switch(option) {
+                        case '1':
+                            return '영상 정보 + 댓글/대댓글 (100개 제한)'
+                        case '2':
+                            return '영상 정보 + 댓글/대댓글 (무제한)'
+                    }
+
+                case '5':
+                    switch(option) {
+                        case '1':
+                            return '기사'
+                    }
+
+                case '6':
+                    switch(option) {
+                        case '1':
+                            return '기사'
+                        case '2':
+                            return '기사 + 댓글'
+                    }
             }
         }
 
@@ -97,7 +141,7 @@
                         listItem.innerHTML = `<span>키워드:</span> ${item.keyword}<br>
                                               <span>요청자:</span> ${item.name}<br>
                                               <span>크롤링 대상:</span> ${getCrawlObjectName(item.crawl_object)}<br>
-                                              <span>크롤링 옵션:</span> ${getOptionName(item.option_select)}<br>
+                                              <span>크롤링 옵션:</span> ${getOptionName(item.crawl_object, item.option_select)}<br>
                                               <span>시작일:</span> ${item.start_day}<br>
                                               <span>종료일:</span> ${item.end_day}<br>
                                               <span>드라이브 업로드:</span> ${item.uploadToDrive}<br><br>
