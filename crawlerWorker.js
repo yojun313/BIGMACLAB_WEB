@@ -39,11 +39,6 @@ pythonProcess.on('close', (code) => {
         crawlDataList.push(newCrawlData);
 
         fs.writeFile(crawl_history_path, JSON.stringify(crawlDataList, null, 2), (writeErr) => {
-            if (writeErr) {
-                parentPort.postMessage('Failed to save crawl data');
-            } else {
-                parentPort.postMessage('크롤링 종료');
-            }
         });
     });
 });
