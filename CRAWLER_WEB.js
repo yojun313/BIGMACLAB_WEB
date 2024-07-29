@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
     socket.on('crawlInfo_submit', (data) => {
         const processId = Date.now().toString();
         const { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive } = data;
-        socket.emit('redirect', '/crawl_process');
+        socket.emit('redirect', '/');
 
         const worker = new Worker('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/crawlerWorker.js', {
             workerData: {
