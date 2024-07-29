@@ -22,6 +22,10 @@ app.get('/history', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'crawl_history.html'));
 });
 
+app.get('/crawl_process', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'crawl_process.html'));
+});
+
 app.get('/getHistoryData', (req, res) => {
     fs.readFile(crawl_history_json, (err, data) => {
         if (err) {
@@ -65,7 +69,7 @@ io.on('connection', (socket) => {
     socket.on('crawlInfo_submit', (data) => {
         const processId = Date.now().toString();
         const { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive } = data;
-        socket.emit('redirect', '/crawl_process.html');
+        socket.emit('redirect', '/crawl_process');
 
         const worker = new Worker('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/crawlerWorker.js', {
             workerData: {
@@ -99,6 +103,6 @@ io.on('connection', (socket) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 80;
 server.listen(PORT, () => {
 });
