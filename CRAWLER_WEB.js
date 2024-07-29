@@ -23,7 +23,7 @@ app.get('/history', (req, res) => {
 });
 
 app.get('/add_crawler', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crawl_process.html'));
+    res.sendFile(path.join(__dirname, 'public', 'crawl_add.html'));
 });
 
 app.get('/getHistoryData', (req, res) => {
