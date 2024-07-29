@@ -331,12 +331,27 @@
                 // 실제 인덱스를 찾기 위해 필터링된 데이터를 사용하여 실제 인덱스를 찾아야 합니다.
                 const requesterData = allData.filter(data => data.name === requesterName);
                 const itemToDelete = requesterData[filteredIndex];
-
+        
                 // 실제 인덱스를 찾습니다.
                 const actualIndex = allData.findIndex(data => data === itemToDelete);
                 if (actualIndex !== -1) {
-                    allData.splice(actualIndex, 1); // 배열에서 항목 제거
-                    showRequester(requesterName); // 현재 활성화된 요청자의 데이터 다시 로드
+                    // 서버로 DELETE 요청을 보냅니다.
+                    fetch(`/deleteHistory?index=${actualIndex}`, { method: 'DELETE' })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                // 배열에서 항목 제거
+                                allData.splice(actualIndex, 1);
+                                // 현재 활성화된 요청자의 데이터 다시 로드
+                                showRequester(requesterName);
+                            } else {
+                                alert('Error deleting the record.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting the record:', error);
+                            alert('Error deleting the record.');
+                        });
                 } else {
                     alert('Error deleting the record.');
                 }
