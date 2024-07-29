@@ -11,6 +11,12 @@
             margin: 0;
             padding: 0;
             color: #333;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #f8f9fa;
         }
 
         .container {
@@ -20,7 +26,12 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dark-mode .container {
+            background: #444;
+            color: #f8f9fa;
         }
 
         .container:hover {
@@ -37,6 +48,10 @@
             text-transform: uppercase;
         }
 
+        .dark-mode h1 {
+            color: #66b2ff;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -45,6 +60,11 @@
 
         table, th, td {
             border: 1px solid #dee2e6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark-mode table, .dark-mode th, .dark-mode td {
+            border: 1px solid #666;
         }
 
         th, td {
@@ -61,6 +81,10 @@
             position: relative;
         }
 
+        .dark-mode th {
+            background-color: #0056b3;
+        }
+
         th .sort-btn {
             background: none;
             border: none;
@@ -70,8 +94,24 @@
             margin-left: 10px;
         }
 
+        .dark-mode th .sort-btn {
+            color: #ccc;
+        }
+
         tr:nth-child(even) {
             background-color: #f8f9fa;
+        }
+
+        .dark-mode tr:nth-child(even) {
+            background-color: #555;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        .dark-mode tr:nth-child(odd) {
+            background-color: #444;
         }
 
         button.delete-btn {
@@ -144,6 +184,31 @@
                 padding: 8px 16px;
             }
         }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .dark-mode .dark-mode-toggle {
+            background-color: #adb5bd;
+            color: #333;
+        }
     </style>
 </head>
 <body>
@@ -156,18 +221,19 @@
             <thead>
                 <tr>
                     <th>키워드<button class="sort-btn" onclick="sortTable('keyword')">🔽</button></th>
-                    <th>요청자</th>
+                    <th>요청자<button class="sort-btn" onclick="sortTable('name')">🔽</button></th>
                     <th>크롤링 대상<button class="sort-btn" onclick="sortTable('crawl_object')">🔽</button></th>
-                    <th>크롤링 옵션</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
-                    <th>파일 수신</th>
+                    <th>크롤링 옵션<button class="sort-btn" onclick="sortTable('option_select')">🔽</button></th>
+                    <th>시작일<button class="sort-btn" onclick="sortTable('start_day')">🔽</button></th>
+                    <th>종료일<button class="sort-btn" onclick="sortTable('end_day')">🔽</button></th>
+                    <th>파일 수신<button class="sort-btn" onclick="sortTable('uploadToDrive')">🔽</button></th>
                     <th>삭제</th>
                 </tr>
             </thead>
             <tbody></tbody>
         </table>
     </div>
+    <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn btn-secondary dark-mode-toggle">Dark Mode</button>
     <script>
         let allData = [];
 
@@ -301,6 +367,10 @@
             if (activeButton) {
                 showRequester(activeButton.textContent);
             }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
         }
 
         document.addEventListener('DOMContentLoaded', function() {
