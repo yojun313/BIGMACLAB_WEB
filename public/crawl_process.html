@@ -153,11 +153,67 @@
             color: var(--requester-title-color);
         }
 
-        .dark-mode-toggle {
+        .fixed-buttons {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .row {
+                flex-direction: column;
+                max-height: none;
+            }
+
+            .col-12.col-md-4.mb-3 {
+                max-width: 100%;
+                flex: 0 0 100%;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+
+            .navigation-button {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 0;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .dark-mode-toggle {
+                right: 10px;
+                bottom: 10px;
+                padding: 10px 15px;
+            }
+
+            .fixed-buttons {
+                right: 10px;
+                bottom: 60px;
+                padding: 10px 15px;
+            }
+
+            .requester-section {
+                padding: 15px;
+            }
+
+            .requester-title {
+                font-size: 1.2rem;
+                margin-bottom: 15px;
+            }
         }
     </style>
 </head>
@@ -167,12 +223,11 @@
         <div id="processes"></div> <!-- 요청자별로 섹션을 생성합니다 -->
     </div>
 
-    <div class="navigation-button">
+    <div class="fixed-buttons">
         <button onclick="window.location.href='http://bigmaclab-crawler.kro.kr:3000';" class="btn btn-primary">크롤러 추가</button>
         <button onclick="window.location.href='http://bigmaclab-crawler.kro.kr:3000/history';" class="btn btn-primary">크롤링 이력</button>
+        <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn btn-secondary dark-mode-toggle">Dark Mode</button>
     </div>
-
-    <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn btn-secondary dark-mode-toggle">Dark Mode</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
