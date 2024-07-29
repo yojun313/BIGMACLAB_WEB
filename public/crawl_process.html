@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <title>BIGMACLAB CRAWLER DASHBOARD</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Light mode variables */
         :root {
             --background-color: #f8f9fa;
             --text-color: #495057;
             --card-background-color: white;
-            --card-shadow: rgba(0, 0, 0, 0.2);
+            --card-shadow: rgba(0, 0, 0, 0.1);
             --card-hover-shadow: rgba(0, 0, 0, 0.2);
             --btn-danger-background-color: #dc3545;
             --btn-danger-border-color: #dc3545;
             --btn-danger-hover-background-color: #c82333;
             --btn-danger-hover-border-color: #bd2130;
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --requester-title-color: #6c757d; /* 회색 계열 */
+            --section-border-color: #dee2e6; /* 경계선 색상 */
+            --section-background-color: #ffffff; /* 섹션 배경색 */
+            --section-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 섹션 그림자 */
         }
 
         /* Dark mode variables */
@@ -24,95 +31,148 @@
             --text-color: #e0e0e0;
             --card-background-color: #242526;
             --card-shadow: rgba(255, 255, 255, 0.1);
-            --card-hover-shadow: rgba(255, 255, 255, 0.1);
+            --card-hover-shadow: rgba(255, 255, 255, 0.2);
             --btn-danger-background-color: #b02a37;
             --btn-danger-border-color: #b02a37;
             --btn-danger-hover-background-color: #8c232d;
             --btn-danger-hover-border-color: #7a1d26;
+            --primary-color: #0d6efd;
+            --secondary-color: #adb5bd;
+            --requester-title-color: #adb5bd; /* 어두운 모드에서 밝은 회색 */
+            --section-border-color: #343a40; /* 어두운 모드에서 경계선 색상 */
+            --section-background-color: #242526; /* 어두운 모드에서 섹션 배경색 */
+            --section-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* 어두운 모드에서 섹션 그림자 */
         }
 
         body {
             background-color: var(--background-color);
             color: var(--text-color);
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.3s, color 0.3s;
         }
-        
+
         .container {
-            max-width: 2700px; /* Adjusted to allow for wider cards */
+            max-width: 2700px;
             width: 100%;
-            margin-bottom: 20px; /* Ensure there's space at the bottom */
+            margin-bottom: 20px;
         }
-        
+
         h2 {
             text-align: center;
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
         }
-        
+
         .row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Center the cards in the row */
-            overflow-y: auto; 
-            max-height: 80vh; /* Adjust height to ensure button is visible */
+            justify-content: center;
+            overflow-y: auto;
+            max-height: 80vh;
             width: 100%;
-            gap: 10px; /* Adjust gap to reduce space between columns */
+            gap: 10px;
         }
-        
+
         .col-12.col-md-4.mb-3 {
-            max-width: calc(33.333% - 10px); /* Adjust to account for gap */
-            flex: 0 0 calc(33.333% - 10px); /* Adjust the flex property to ensure 3 columns with gap */
+            max-width: calc(33.333% - 10px);
+            flex: 0 0 calc(33.333% - 10px);
         }
-        
+
         .card {
             background-color: var(--card-background-color);
             box-shadow: 0 4px 8px 0 var(--card-shadow);
-            transition: 0.3s;
+            transition: box-shadow 0.3s, transform 0.3s;
+            border-radius: 10px;
             border: none;
-            margin-bottom: 10px; /* Adjust margin to reduce space between rows */
-            width: 100%; /* Ensure card takes full width within column */
+            margin-bottom: 10px;
+            width: 100%;
         }
-        
+
         .card:hover {
             box-shadow: 0 8px 16px 0 var(--card-hover-shadow);
+            transform: translateY(-5px);
         }
-        
+
         .btn-danger {
             background-color: var(--btn-danger-background-color);
             border-color: var(--btn-danger-border-color);
+            transition: background-color 0.3s, border-color 0.3s;
         }
-        
+
         .btn-danger:hover {
             background-color: var(--btn-danger-hover-background-color);
             border-color: var(--btn-danger-hover-border-color);
         }
-        
-        .navigation-button {
-            width: 100%; /* Full width to match the cards above */
-            text-align: center; /* Center the button */
-            padding: 20px 0; /* Add some padding above and below the button */
+
+        .btn-primary, .btn-secondary {
+            border-radius: 20px;
+            padding: 10px 20px;
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
         }
-        
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .navigation-button {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .requester-section {
+            margin-bottom: 40px;
+            border: 1px solid var(--section-border-color); /* 경계선 추가 */
+            background-color: var(--section-background-color); /* 섹션 배경색 */
+            box-shadow: var(--section-shadow); /* 섹션 그림자 */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .requester-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--requester-title-color);
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
     <div class="container py-5">
         <h2 class="mb-4">CRAWLER DASHBOARD</h2>
-        <div class="navigation-button">
-            <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn btn-secondary">Dark Mode</button>
-        </div>
-        <div id="processes" class="row"></div> <!-- 크롤링 프로세스가 여기에 표시됩니다 -->
+        <div id="processes"></div> <!-- 요청자별로 섹션을 생성합니다 -->
     </div>
 
     <div class="navigation-button">
         <button onclick="window.location.href='http://bigmaclab-crawler.kro.kr:3000';" class="btn btn-primary">크롤러 추가</button>
         <button onclick="window.location.href='http://bigmaclab-crawler.kro.kr:3000/history';" class="btn btn-primary">크롤링 이력</button>
     </div>
+
+    <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn btn-secondary dark-mode-toggle">Dark Mode</button>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -179,7 +239,31 @@
             }
         }
 
+        function createRequesterSection(requesterName) {
+            const section = document.createElement('div');
+            section.id = `requester-${requesterName}`;
+            section.classList.add('requester-section');
+
+            const title = document.createElement('h3');
+            title.classList.add('requester-title');
+            title.textContent = `요청자: ${requesterName}`;
+            section.appendChild(title);
+
+            const row = document.createElement('div');
+            row.classList.add('row');
+            section.appendChild(row);
+
+            document.getElementById('processes').appendChild(section);
+        }
+
         socket.on('crawl_progress', (data) => {
+            let requesterSection = document.getElementById(`requester-${data.name}`);
+            if (!requesterSection) {
+                createRequesterSection(data.name);
+                requesterSection = document.getElementById(`requester-${data.name}`);
+            }
+
+            const row = requesterSection.querySelector('.row');
             let processElement = document.getElementById(`process-${data.processId}`);
             if (!processElement) {
                 processElement = document.createElement('div');
@@ -203,7 +287,7 @@
                         </div>
                     </div>
                 `;
-                document.getElementById('processes').appendChild(processElement);
+                row.appendChild(processElement);
 
                 const terminateButton = document.createElement('button');
                 terminateButton.textContent = 'Terminate';
@@ -228,7 +312,6 @@
             }
         });
 
-        // Function to toggle dark mode
         function toggleDarkMode() {
             const body = document.body;
             body.classList.toggle('dark-mode');
