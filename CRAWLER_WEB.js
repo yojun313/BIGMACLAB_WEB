@@ -15,14 +15,14 @@ const crawl_history_json = `C:/Users/User/Documents/GitHub/crawler_history.json`
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crawl_info.html'));
+    res.sendFile(path.join(__dirname, 'public', 'crawl_process.html'));
 });
 
 app.get('/history', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'crawl_history.html'));
 });
 
-app.get('/crawl_process', (req, res) => {
+app.get('/add_crawler', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'crawl_process.html'));
 });
 
