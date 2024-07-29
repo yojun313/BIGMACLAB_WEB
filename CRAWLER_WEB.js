@@ -15,7 +15,7 @@ const crawl_history_json = `C:/Users/User/Documents/GitHub/crawler_history.json`
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'crawl_process.html'));
+    res.sendFile(path.join(__dirname, 'public', 'crawl_dashboard.html'));
 });
 
 app.get('/history', (req, res) => {
