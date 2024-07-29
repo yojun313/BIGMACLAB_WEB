@@ -226,7 +226,6 @@
                     <th>크롤링 옵션<button class="sort-btn" onclick="sortTable('option_select')">🔽</button></th>
                     <th>시작일<button class="sort-btn" onclick="sortTable('start_day')">🔽</button></th>
                     <th>종료일<button class="sort-btn" onclick="sortTable('end_day')">🔽</button></th>
-                    <th>파일 수신<button class="sort-btn" onclick="sortTable('uploadToDrive')">🔽</button></th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -319,7 +318,6 @@
                     <td>${getOptionName(item.crawl_object, item.option_select)}</td>
                     <td>${item.start_day}</td>
                     <td>${item.end_day}</td>
-                    <td>${item.uploadToDrive ? 'Y' : 'N'}</td>
                     <td><button class='delete-btn' onclick="deleteRecord('${requesterName}', ${index})">삭제</button></td>
                 `;
                 tableBody.appendChild(row);
