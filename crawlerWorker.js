@@ -6,6 +6,8 @@ const crawl_history_path = `C:/Users/User/Documents/GitHub/crawler_history.json`
 const { scriptPath, args } = workerData;
 const pythonProcess = spawn('python', ['-u', scriptPath, ...args]);
 
+let terminationReason = 'completed'; // Default termination reason
+
 pythonProcess.stdout.on('data', (data) => {
     parentPort.postMessage(data.toString());
 });
@@ -23,7 +25,7 @@ pythonProcess.on('close', (code) => {
         option_select: args[4],
         keyword: args[5],
         uploadToDrive: args[6],
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
     };
 
     fs.readFile(crawl_history_path, (err, data) => {
@@ -39,12 +41,16 @@ pythonProcess.on('close', (code) => {
         crawlDataList.push(newCrawlData);
 
         fs.writeFile(crawl_history_path, JSON.stringify(crawlDataList, null, 2), (writeErr) => {
+            if (writeErr) {
+                console.error('Error writing JSON data:', writeErr);
+            }
         });
     });
 });
 
 parentPort.on('message', (message) => {
     if (message === 'terminate') {
+        terminationReason = 'terminated';
         pythonProcess.kill('SIGINT');
     }
 });
