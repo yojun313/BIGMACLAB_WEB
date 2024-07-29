@@ -8,42 +8,59 @@
     <style>
         body {
             padding-top: 20px;
-            background-color: #f8f9fa; /* Light grey background */
+            background-color: #f0f2f5; /* Light grey background */
+            font-family: 'Roboto', sans-serif;
         }
         .container {
             max-width: 600px;
             background-color: #ffffff; /* White background */
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
             margin: auto;
         }
         .btn-custom {
             background-color: #007bff; /* Custom button color */
             color: #ffffff;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
         }
         .btn-custom:hover {
             background-color: #0056b3; /* Darker shade for hover state */
         }
         .form-label {
-            font-weight: 500; /* Slightly bolder labels */
+            font-weight: 600; /* Slightly bolder labels */
         }
         .btn-group {
             display: flex;
             justify-content: space-between; /* Space between buttons */
         }
         .btn-custom + .btn-custom {
-            margin-left: 20px; /* Adds space between buttons */
+            margin-left: 10px; /* Adds space between buttons */
         }
         h2 {
             text-align: center;
             font-weight: bold; /* Makes the title bold */
+            margin-bottom: 30px;
+            color: #333333; /* Dark grey for title */
+        }
+        .form-check-label {
+            margin-right: 10px; /* Adds space between radio buttons */
+        }
+        .form-control {
+            border-radius: 25px; /* Rounded input fields */
+            padding: 10px 15px;
+        }
+        .form-select {
+            border-radius: 25px; /* Rounded select fields */
+            padding: 10px 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="mb-4">BIGMACLAB CRAWLER</h2>
+        <h2>BIGMACLAB CRAWLER</h2>
         <form id="crawlForm">
             <div class="mb-3">
                 <label for="nameInput" class="form-label">이름</label>
@@ -152,7 +169,6 @@
                     { value: '2', text: '2. 기사 + 댓글' }
                 ];
             }
-            
 
             options.forEach(option => {
                 const opt = document.createElement('option');
@@ -161,7 +177,6 @@
                 optionSelect.add(opt);
             });
         });
-        
 
         // 페이지 로드 시 선택 항목 업데이트
         document.getElementById('crawlTargetSelect').dispatchEvent(new Event('change'));

@@ -3,74 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <title>크롤링 이력</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
             color: #333;
         }
 
         .container {
-            width: 80%;
+            width: 90%;
             margin: 2rem auto;
             background: white;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            color: #0056b3;
+            color: #007bff;
             text-align: center;
-            font-size: 24px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background: #e9ecef;
-            margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 5px;
-            border-left: 5px solid #0056b3;
-        }
-
-        li:nth-child(even) {
-            border-left-color: #ff4500;
-        }
-
-        li span {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
-            /* Existing styles... */
-        button.delete-btn {
-            background-color: #ff4d4d; /* Red background */
-            color: white; /* White text */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+        }
+
+        th .sort-btn {
+            background: none;
             border: none;
-            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        button.delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         button.delete-btn:hover {
-            background-color: #ff3333; /* Darker red on hover */
+            background-color: #c82333;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-group button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn-group button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .btn-group button.active {
+            background-color: #004494;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            table, th, td {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            button.delete-btn {
+                padding: 4px 8px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .btn-group button {
+                padding: 8px 16px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>크롤링 이력</h1>
-        <ul id="crawlList"></ul>
+        <div class="btn-group" id="requester-buttons">
+            <!-- 요청자 버튼이 여기에 동적으로 추가됩니다 -->
+        </div>
+        <table id="crawlTable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>키워드<button class="sort-btn" onclick="sortTable('keyword')">🔽</button></th>
+                    <th>요청자</th>
+                    <th>크롤링 대상<button class="sort-btn" onclick="sortTable('crawl_object')">🔽</button></th>
+                    <th>크롤링 옵션</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>파일 수신</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
     <script>
-        
+        let allData = [];
+
         function getCrawlObjectName(crawl_object) {
             switch(crawl_object) {
                 case '1': return 'Naver News';
@@ -79,6 +179,7 @@
                 case '4': return 'YouTube';
                 case '5': return 'ChinaDaily';
                 case '6': return 'ChinaSina';
+                default: return 'Unknown';
             }
         }
 
@@ -86,48 +187,119 @@
             switch(CrawlObject) {
                 case '1':
                     switch(option) {
-                        case '1':
-                            return '기사 + 댓글'
-                        case '2':
-                            return '기사 + 댓글/대댓글'
+                        case '1': return '기사 + 댓글';
+                        case '2': return '기사 + 댓글/대댓글';
+                        default: return 'Unknown Option';
                     }
                 case '2':
                     switch(option) {
-                        case '1':
-                            return '블로그 본문'
-                        case '2':
-                            return '블로그 본문 + 댓글/대댓글'
+                        case '1': return '블로그 본문';
+                        case '2': return '블로그 본문 + 댓글/대댓글';
+                        default: return 'Unknown Option';
                     }
-
                 case '3':
                     switch(option) {
-                        case '1':
-                            return '카페 본문'
-                        case '2':
-                            return '카페 본문 + 댓글/대댓글'
+                        case '1': return '카페 본문';
+                        case '2': return '카페 본문 + 댓글/대댓글';
+                        default: return 'Unknown Option';
                     }
-
                 case '4':
                     switch(option) {
-                        case '1':
-                            return '영상 정보 + 댓글/대댓글 (100개 제한)'
-                        case '2':
-                            return '영상 정보 + 댓글/대댓글 (무제한)'
+                        case '1': return '영상 정보 + 댓글/대댓글 (100개 제한)';
+                        case '2': return '영상 정보 + 댓글/대댓글 (무제한)';
+                        default: return 'Unknown Option';
                     }
-
                 case '5':
                     switch(option) {
-                        case '1':
-                            return '기사'
+                        case '1': return '기사';
+                        default: return 'Unknown Option';
                     }
-
                 case '6':
                     switch(option) {
-                        case '1':
-                            return '기사'
-                        case '2':
-                            return '기사 + 댓글'
+                        case '1': return '기사';
+                        case '2': return '기사 + 댓글';
+                        default: return 'Unknown Option';
                     }
+                default: return 'Unknown CrawlObject';
+            }
+        }
+
+        function createRequesterButtons() {
+            const requesterNames = [...new Set(allData.map(data => data.name))];
+            const buttonsContainer = document.getElementById('requester-buttons');
+
+            requesterNames.forEach(name => {
+                const button = document.createElement('button');
+                button.textContent = name;
+                button.onclick = () => {
+                    document.querySelectorAll('.btn-group button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    showRequester(name);
+                };
+                buttonsContainer.appendChild(button);
+            });
+        }
+
+        function showRequester(requesterName) {
+            const tableBody = document.querySelector('#crawlTable tbody');
+            tableBody.innerHTML = ''; // 기존 내용 제거
+            const requesterData = allData.filter(data => data.name === requesterName);
+            requesterData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.keyword}</td>
+                    <td>${item.name}</td>
+                    <td>${getCrawlObjectName(item.crawl_object)}</td>
+                    <td>${getOptionName(item.crawl_object, item.option_select)}</td>
+                    <td>${item.start_day}</td>
+                    <td>${item.end_day}</td>
+                    <td>${item.uploadToDrive ? 'Y' : 'N'}</td>
+                    <td><button class='delete-btn' onclick="deleteRecord('${requesterName}', ${index})">삭제</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function deleteRecord(requesterName, filteredIndex) {
+            if (confirm('삭제하시겠습니까?')) { // Confirmation dialog
+                // 실제 인덱스를 찾기 위해 필터링된 데이터를 사용하여 실제 인덱스를 찾아야 합니다.
+                const requesterData = allData.filter(data => data.name === requesterName);
+                const itemToDelete = requesterData[filteredIndex];
+
+                // 실제 인덱스를 찾습니다.
+                const actualIndex = allData.findIndex(data => data === itemToDelete);
+                if (actualIndex !== -1) {
+                    allData.splice(actualIndex, 1); // 배열에서 항목 제거
+                    showRequester(requesterName); // 현재 활성화된 요청자의 데이터 다시 로드
+                } else {
+                    alert('Error deleting the record.');
+                }
+            }
+        }
+
+        function sortTable(column) {
+            allData.sort((a, b) => {
+                let valA = a[column];
+                let valB = b[column];
+
+                if (typeof valA === 'string') {
+                    valA = valA.toUpperCase();
+                    valB = valB.toUpperCase();
+                    if (valA < valB) return -1;
+                    if (valA > valB) return 1;
+                    return 0;
+                } else if (typeof valA === 'number') {
+                    return valA - valB;
+                } else if (!isNaN(Date.parse(valA))) {
+                    return new Date(valA) - new Date(valB);
+                } else {
+                    return 0;
+                }
+            });
+
+            const activeButton = document.querySelector('.btn-group button.active');
+            if (activeButton) {
+                showRequester(activeButton.textContent);
             }
         }
 
@@ -135,40 +307,11 @@
             fetch('/getHistoryData')
                 .then(response => response.json())
                 .then(data => {
-                    const list = document.getElementById('crawlList');
-                    data.forEach((item, index) => {
-                        const listItem = document.createElement('li');
-                        listItem.innerHTML = `<span>키워드:</span> ${item.keyword}<br>
-                                              <span>요청자:</span> ${item.name}<br>
-                                              <span>크롤링 대상:</span> ${getCrawlObjectName(item.crawl_object)}<br>
-                                              <span>크롤링 옵션:</span> ${getOptionName(item.crawl_object, item.option_select)}<br>
-                                              <span>시작일:</span> ${item.start_day}<br>
-                                              <span>종료일:</span> ${item.end_day}<br>
-                                              <span>드라이브 업로드:</span> ${item.uploadToDrive}<br><br>
-                                              <button class='delete-btn' onclick="deleteRecord(${index})">삭제</button>`;
-                        list.appendChild(listItem);
-                    });
+                    allData = data;
+                    createRequesterButtons();
                 })
                 .catch(error => console.error('Error loading the data:', error));
         });
-    
-        function deleteRecord(index) {
-            if (confirm('삭제하시겠습니까?')) { // Confirmation dialog
-                fetch(`/deleteHistory?index=${index}`, { method: 'DELETE' })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.success) {
-                            location.reload(); // Reload the page to update the list
-                        } else {
-                            alert('Error deleting the record.');
-                        }
-                    })
-                    .catch(error => {
-                    console.error('Error deleting the record:', error);
-                    alert('Error deleting the record.');
-                });
-            }
-        }
-    </script>    
+    </script>
 </body>
 </html>
