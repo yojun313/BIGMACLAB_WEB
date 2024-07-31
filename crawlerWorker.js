@@ -16,7 +16,11 @@ pythonProcess.stderr.on('data', (data) => {
     parentPort.postMessage(`Error: ${data}`);
 });
 
-pythonProcess.on('close', (code) => {
+pythonProcess.on('close', async (code) => {
+    if (code !== 0) {
+        // 프로세스가 비정상적으로 종료된 경우
+        return;
+    }
     const newCrawlData = {
         name: args[0],
         crawl_object: args[1],
