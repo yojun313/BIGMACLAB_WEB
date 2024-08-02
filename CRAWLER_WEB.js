@@ -9,8 +9,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const python_CRAWLER_WEB = 'C:/Users/User/Documents/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
-const crawl_history_json = `C:/Users/User/Documents/GitHub/crawler_history.json`
+const python_CRAWLER_WEB = 'C:/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
+const crawl_history_json = 'C:/Users/skroh/Documents/BIGMACLAB/CRAWLER/crawler_history.json'
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
         const { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive } = data;
         socket.emit('redirect', '/');
 
-        const worker = new Worker('C:/Users/User/Documents/GitHub/BIGMACLAB_WEB/crawlerWorker.js', {
+        const worker = new Worker('C:/GitHub/BIGMACLAB_WEB/crawlerWorker.js', {
             workerData: {
                 scriptPath: python_CRAWLER_WEB,
                 args: [name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive]

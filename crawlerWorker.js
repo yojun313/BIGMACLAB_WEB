@@ -1,7 +1,7 @@
 const { workerData, parentPort } = require('worker_threads');
 const { spawn } = require('child_process');
 const fs = require('fs');
-const crawl_history_path = `C:/Users/User/Documents/GitHub/crawler_history.json`
+const crawl_history_path = 'C:/Users/skroh/Documents/BIGMACLAB/CRAWLER/crawler_history.json'
 
 const { scriptPath, args } = workerData;
 const pythonProcess = spawn('python', ['-u', scriptPath, ...args]);
