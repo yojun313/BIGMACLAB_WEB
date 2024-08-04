@@ -344,13 +344,23 @@
                 `;
                 row.appendChild(processElement);
 
-                //const terminateButton = document.createElement('button');
+                const terminateButton = document.createElement('button');
                 terminateButton.textContent = 'Terminate';
                 terminateButton.classList.add('btn', 'btn-danger', 'mt-2');
                 terminateButton.addEventListener('click', () => {
                     const isConfirmed = confirm('크롤러를 종료하시겠습니까?');
                     if (isConfirmed) {
-                        socket.emit('terminate_process', { processId: data.processId });
+                        socket.emit('terminate_process', {
+                             processId: data.processId,
+                             keyword: data.keyword,
+                             name: data.name,
+                             crawl_object: data.crawl_object,
+                             option_select: data.option_select,
+                             start_day: data.start_day,
+                             end_day: data.end_day,
+                             uploadToDrive: data.uploadToDrive,
+                             output: data.output  
+                        });
                     }
                 });
                 processElement.querySelector('.card-body').appendChild(terminateButton);
