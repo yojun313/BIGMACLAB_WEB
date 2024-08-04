@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 const python_CRAWLER_WEB = 'C:/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
-const crawl_history_json = 'C:/Users/skroh/Documents/BIGMACLAB/CRAWLER/crawler_history.json'
+const crawl_history_json = 'D:/BIGMACLAB/CRAWLER/crawler_history.json'
 
 app.use(express.static(path.join(__dirname, 'public')));
 
