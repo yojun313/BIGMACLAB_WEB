@@ -1,7 +1,7 @@
 const { workerData, parentPort } = require('worker_threads');
 const { spawn } = require('child_process');
-const fs = require('fs');
-const crawl_history_path = 'C:/Users/skroh/Documents/BIGMACLAB/CRAWLER/crawler_history.json'
+const fs = require('fs').promises; // fs.promises 사용
+const crawl_history_path = 'D:/BIGMACLAB/CRAWLER/crawler_history.json';
 
 const { scriptPath, args } = workerData;
 const pythonProcess = spawn('python', ['-u', scriptPath, ...args]);
@@ -21,6 +21,7 @@ pythonProcess.on('close', async (code) => {
         // 프로세스가 비정상적으로 종료된 경우
         return;
     }
+
     const newCrawlData = {
         name: args[0],
         crawl_object: args[1],
@@ -32,11 +33,20 @@ pythonProcess.on('close', async (code) => {
         timestamp: new Date().toISOString(),
     };
 
-    fs.readFile(crawl_history_path, (err, data) => {
+    try {
+        const data = await fs.readFile(crawl_history_path, 'utf8');
         let crawlDataList = [];
-        if (!err) {
+
+        if (data) {
             try {
-                crawlDataList = JSON.parse(data);
+                const parsedData = JSON.parse(data);
+                console.log(data)
+                console.log(parsedData)
+                if (Array.isArray(parsedData)) {
+                    crawlDataList = parsedData;
+                } else {
+                    console.error('Parsed data is not an array, initializing as empty array.');
+                }
             } catch (parseError) {
                 console.error('Error parsing JSON data:', parseError);
             }
@@ -44,12 +54,11 @@ pythonProcess.on('close', async (code) => {
 
         crawlDataList.push(newCrawlData);
 
-        fs.writeFile(crawl_history_path, JSON.stringify(crawlDataList, null, 2), (writeErr) => {
-            if (writeErr) {
-                console.error('Error writing JSON data:', writeErr);
-            }
-        });
-    });
+        await fs.writeFile(crawl_history_path, JSON.stringify(crawlDataList, null, 2));
+        console.log('Crawl data saved successfully.');
+    } catch (err) {
+        console.error('Error reading or writing JSON data:', err);
+    }
 });
 
 parentPort.on('message', (message) => {

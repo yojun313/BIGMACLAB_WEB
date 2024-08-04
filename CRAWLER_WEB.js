@@ -3,7 +3,9 @@ const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
 const fs = require('fs');
+const fsextra = require('fs-extra')
 const { Worker } = require('worker_threads');
+const mysqlModule = require('./mysql')
 
 const app = express();
 const server = http.createServer(app);
@@ -64,8 +66,25 @@ app.delete('/deleteHistory', (req, res) => {
 
 let processes = {};
 
+async function processDatabases(databases, DBname, requester) {
+    const scrapdata_path = 'D:/BIGMACLAB/CRAWLER/scrapdata';
+
+    for (const db of databases) {
+        if (db.includes(DBname)) {
+            try {
+                await mysqlModule.deleteDatabase(db);
+
+                const db_path = path.join(scrapdata_path, `${requester}_scrapdata`, db);
+                await fsextra.remove(db_path);
+            } catch (err) {
+                console.error(`오류가 발생했습니다: ${err}`);
+            }
+        }
+    }
+}
+
+
 io.on('connection', (socket) => {
-    
     socket.on('crawlInfo_submit', (data) => {
         const processId = Date.now().toString();
         const { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive } = data;
@@ -92,8 +111,23 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on('terminate_process', (data) => {
+    socket.on('terminate_process', async (data) => {
+        const requester = data.name;
         const processId = data.processId;
+        const keyword = data.keyword;
+        const crawl_object = data.crawl_object.replace(/\s+/g, '').toLowerCase();
+        const start_day = data.start_day;
+        const end_day = data.end_day;
+        const DBname = `${crawl_object}_${keyword}_${start_day}_${end_day}`;
+
+        try {
+            const databases = await mysqlModule.getAllDatabases();
+            await processDatabases(databases, DBname, requester);
+        } catch (err) {
+            console.error('Error fetching databases or processing them:', err);
+            return;
+        }
+
         if (processes[processId]) {
             processes[processId].terminate();
             processes[processId].postMessage('terminate');
@@ -102,6 +136,8 @@ io.on('connection', (socket) => {
         }
     });
 });
+
+
 
 const PORT = 80;
 server.listen(PORT, () => {
