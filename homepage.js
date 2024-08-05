@@ -63,7 +63,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 app.get('/crawler_web_dashboard', (req, res) => {
-    res.redirect("http://bigmaclab-crawler.kro.kr:3000");
+    res.redirect("http://bigmaclab-crawler.kro.kr");
 });
 
 app.get('/link2', ensureAuthenticated, (req, res) => {
