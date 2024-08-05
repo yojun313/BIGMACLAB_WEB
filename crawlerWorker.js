@@ -1,7 +1,16 @@
 const { workerData, parentPort } = require('worker_threads');
 const { spawn } = require('child_process');
 const fs = require('fs').promises; // fs.promises 사용
-const crawl_history_path = 'D:/BIGMACLAB/CRAWLER/crawler_history.json';
+
+const computername = os.hostname()
+if (computername == "DESKTOP-502IMU5") {
+    crawler_folder_path = 'C:/BIGMACLAB/CRAWLER'
+}
+else {
+    crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
+}
+
+const crawl_history_path = path.join(crawler_folder_path, 'crawler_history.json')
 
 const { scriptPath, args } = workerData;
 const pythonProcess = spawn('python', ['-u', scriptPath, ...args]);

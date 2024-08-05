@@ -6,13 +6,34 @@ const fs = require('fs');
 const fsextra = require('fs-extra')
 const { Worker } = require('worker_threads');
 const mysqlModule = require('./mysql')
+const os = require('os')
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
 const python_CRAWLER_WEB = 'C:/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
-const crawl_history_json = 'D:/BIGMACLAB/CRAWLER/crawler_history.json'
+
+const computername = os.hostname()
+// OMEN
+if (computername == "DESKTOP-502IMU5") {
+    crawler_folder_path = 'C:/BIGMACLAB/CRAWLER'
+    let PORT = 82
+}
+// Z8
+else if (computername == "DESKTOP-0I9OM9K") {
+    crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
+    let PORT = 81
+}
+else if (computername == "BigMacServer") {
+    crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
+    let PORT = 80
+}
+
+const crawl_history_json = path.join(crawler_folder_path, 'crawler_history.json')
+const scrapdata_path     = path.join(crawler_folder_path, 'scrapdata')
+const crawlWorker_path   = path.join(__dirname, 'crawlerWorker.js')
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -67,8 +88,6 @@ app.delete('/deleteHistory', (req, res) => {
 let processes = {};
 
 async function processDatabases(databases, DBname, requester) {
-    const scrapdata_path = 'D:/BIGMACLAB/CRAWLER/scrapdata';
-
     for (const db of databases) {
         if (db.includes(DBname)) {
             try {
@@ -90,7 +109,7 @@ io.on('connection', (socket) => {
         const { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive } = data;
         socket.emit('redirect', '/');
 
-        const worker = new Worker('C:/GitHub/BIGMACLAB_WEB/crawlerWorker.js', {
+        const worker = new Worker(crawlWorker_path, {
             workerData: {
                 scriptPath: python_CRAWLER_WEB,
                 args: [name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive]
@@ -137,8 +156,5 @@ io.on('connection', (socket) => {
     });
 });
 
-
-
-const PORT = 80;
 server.listen(PORT, () => {
 });

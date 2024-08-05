@@ -1,13 +1,5 @@
-const http = require('http');
+const os = require('os');
 
-const port = 3000;
+const hostname = os.hostname();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
-});
-
-server.listen(port, '0.0.0.0', () => {
-  console.log(`Server running at http://0.0.0.0:${port}/`);
-});
+console.log(`컴퓨터의 이름은: ${hostname}`);
