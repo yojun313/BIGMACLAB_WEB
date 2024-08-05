@@ -88,31 +88,36 @@
       const files = await response.json();
       const fileList = document.getElementById('fileList');
       fileList.innerHTML = '';
-
+  
       files.forEach(file => {
         const row = document.createElement('tr');
-
+  
         const fileNameCell = document.createElement('td');
         const downloadLink = document.createElement('a');
-        downloadLink.href = `/download/${file}`;
-        downloadLink.textContent = file;
-        downloadLink.download = file;
+        downloadLink.href = `/download/${file.name}`;
+        downloadLink.textContent = file.name;
+        downloadLink.download = file.name;
         fileNameCell.appendChild(downloadLink);
-
+  
+        const fileSizeCell = document.createElement('td');
+        fileSizeCell.textContent = file.size;
+  
         const actionCell = document.createElement('td');
+        actionCell.className = 'center';
         const downloadButton = document.createElement('a');
-        downloadButton.href = `/download/${file}`;
+        downloadButton.href = `/download/${file.name}`;
         downloadButton.innerHTML = '<i class="fas fa-download"></i> Download';
         downloadButton.className = 'button';
         actionCell.appendChild(downloadButton);
-
+  
         row.appendChild(fileNameCell);
+        row.appendChild(fileSizeCell);
         row.appendChild(actionCell);
-
+  
         fileList.appendChild(row);
       });
     }
-
+  
     document.addEventListener('DOMContentLoaded', loadFiles);
   </script>
 </head>
@@ -124,6 +129,7 @@
       <thead>
         <tr>
           <th>File Name</th>
+          <th>Size</th>
           <th class="center">Download</th>
         </tr>
       </thead>
