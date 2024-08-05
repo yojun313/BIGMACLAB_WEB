@@ -1,6 +1,7 @@
 const { workerData, parentPort } = require('worker_threads');
 const { spawn } = require('child_process');
 const fs = require('fs').promises; // fs.promises 사용
+const os = require('os');
 
 const computername = os.hostname()
 if (computername == "DESKTOP-502IMU5") {
