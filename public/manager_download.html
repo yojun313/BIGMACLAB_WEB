@@ -93,6 +93,7 @@
         const row = document.createElement('tr');
   
         const fileNameCell = document.createElement('td');
+        fileNameCell.className = 'center';
         const downloadLink = document.createElement('a');
         downloadLink.href = `/download/${file.name}`;
         downloadLink.textContent = file.name;
@@ -100,6 +101,7 @@
         fileNameCell.appendChild(downloadLink);
   
         const fileSizeCell = document.createElement('td');
+        fileSizeCell.className = 'center';
         fileSizeCell.textContent = file.size;
   
         const actionCell = document.createElement('td');
@@ -123,13 +125,14 @@
 </head>
 <body>
   <div class="container">
+    </br>
     <h1><i class="fas fa-file-download"></i> BIGMACLAB MANAGER DOWNLOAD</h1>
-    <h2>Developed by MYJ</h2>
+    <h2>Developed by MYJ</h2></br>
     <table>
       <thead>
         <tr>
-          <th>File Name</th>
-          <th>Size</th>
+          <th class="center">File Name</th>
+          <th class="center">Size</th>
           <th class="center">Download</th>
         </tr>
       </thead>
