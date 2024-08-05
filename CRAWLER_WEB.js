@@ -15,19 +15,20 @@ const io = socketIo(server);
 const python_CRAWLER_WEB = 'C:/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
 
 const computername = os.hostname()
+let PORT;
 // OMEN
 if (computername == "DESKTOP-502IMU5") {
     crawler_folder_path = 'C:/BIGMACLAB/CRAWLER'
-    let PORT = 82
+    PORT = 82
 }
 // Z8
 else if (computername == "DESKTOP-0I9OM9K") {
     crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
-    let PORT = 81
+    PORT = 81
 }
 else if (computername == "BigMacServer") {
     crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
-    let PORT = 80
+    PORT = 80
 }
 
 const crawl_history_json = path.join(crawler_folder_path, 'crawler_history.json')
