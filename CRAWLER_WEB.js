@@ -16,10 +16,11 @@ const python_CRAWLER_WEB = 'C:/GitHub/BIGMACLAB/CRAWLER/CRAWLER_WEB.py'
 
 const computername = os.hostname()
 let PORT;
+
 // OMEN
 if (computername == "DESKTOP-502IMU5") {
     crawler_folder_path = 'C:/BIGMACLAB/CRAWLER'
-    PORT = 82
+    PORT = 80
 }
 // Z8
 else if (computername == "DESKTOP-0I9OM9K") {
@@ -28,7 +29,7 @@ else if (computername == "DESKTOP-0I9OM9K") {
 }
 else if (computername == "BigMacServer") {
     crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
-    PORT = 80
+    PORT = 82
 }
 
 const crawl_history_json = path.join(crawler_folder_path, 'crawler_history.json')
