@@ -1,12 +1,31 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-
+const jwt = require('jsonwebtoken');
+const https = require('https');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 90;
 
 // 특정 폴더 경로 (여기에 exe 파일들이 저장되어 있어야 합니다)
 const folderPath = "D:/BIGMACLAB/CRAWLER/BIGMACLAB_MANAGER";
+
+// 정적 파일 제공을 위한 디렉토리 설정
+app.use(express.static('public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+var options = {
+    key: fs.readFileSync(path.join(__dirname, 'public', 'ssl.key'), 'utf8'),
+    cert: fs.readFileSync(path.join(__dirname, 'public', 'ssl.crt'), 'utf8'),
+    ca: [
+        fs.readFileSync(path.join(__dirname, 'public', 'chain_ssl.crt'), 'utf8'),
+        fs.readFileSync(path.join(__dirname, 'public', 'chain_all_ssl.crt'), 'utf8')
+    ],
+    passphrase: 'bigmaclab2022!'
+};
 
 app.get('/files', (req, res) => {
   fs.readdir(folderPath, (err, files) => {
@@ -45,7 +64,6 @@ app.get('/files', (req, res) => {
   });
 });
 
-
 // 파일 다운로드 엔드포인트
 app.get('/download/:filename', (req, res) => {
   const filename = req.params.filename;
@@ -53,7 +71,9 @@ app.get('/download/:filename', (req, res) => {
   
   res.download(filePath, (err) => {
     if (err) {
-      res.status(404).send('File not found.');
+      if (!res.headersSent) {  // 헤더가 이미 전송되지 않은 경우에만 상태 코드와 메시지를 보냄
+        res.status(404).send('File not found.');
+      }
     }
   });
 });
@@ -63,5 +83,5 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'manager_download.html'));
 });
 
-app.listen(PORT, () => {
+https.createServer(options, app).listen(PORT, () => {
 });
