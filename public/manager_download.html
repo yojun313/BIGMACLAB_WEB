@@ -4,17 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Download Board</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background-color: #f4f4f4;
       margin: 0;
       padding: 20px;
     }
+
     h1, h2 {
       text-align: center;
       color: #333;
     }
+
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -23,36 +26,60 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 20px 0;
     }
+
     table, th, td {
       border: 1px solid #ddd;
     }
+
     th, td {
       padding: 12px;
       text-align: left;
     }
+
     th {
       background-color: #f2f2f2;
     }
+
     tr:nth-child(even) {
       background-color: #f9f9f9;
     }
+
     tr:hover {
       background-color: #f1f1f1;
     }
+
     a {
       color: #3498db;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
+
     .center {
       text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #3498db;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #2980b9;
     }
   </style>
   <script>
@@ -75,7 +102,7 @@
         const actionCell = document.createElement('td');
         const downloadButton = document.createElement('a');
         downloadButton.href = `/download/${file}`;
-        downloadButton.textContent = 'Download';
+        downloadButton.innerHTML = '<i class="fas fa-download"></i> Download';
         downloadButton.className = 'button';
         actionCell.appendChild(downloadButton);
 
@@ -91,7 +118,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>File Download Board</h1>
+    <h1><i class="fas fa-file-download"></i> File Download Board</h1>
     <h2>Download a file</h2>
     <table>
       <thead>
