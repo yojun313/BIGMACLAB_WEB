@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Download Board</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .center {
+      text-align: center;
+    }
+  </style>
+  <script>
+    async function loadFiles() {
+      const response = await fetch('/files');
+      const files = await response.json();
+      const fileList = document.getElementById('fileList');
+      fileList.innerHTML = '';
+
+      files.forEach(file => {
+        const row = document.createElement('tr');
+
+        const fileNameCell = document.createElement('td');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = `/download/${file}`;
+        downloadLink.textContent = file;
+        downloadLink.download = file;
+        fileNameCell.appendChild(downloadLink);
+
+        const actionCell = document.createElement('td');
+        const downloadButton = document.createElement('a');
+        downloadButton.href = `/download/${file}`;
+        downloadButton.textContent = 'Download';
+        downloadButton.className = 'button';
+        actionCell.appendChild(downloadButton);
+
+        row.appendChild(fileNameCell);
+        row.appendChild(actionCell);
+
+        fileList.appendChild(row);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadFiles);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>File Download Board</h1>
+    <h2>Download a file</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>File Name</th>
+          <th class="center">Action</th>
+        </tr>
+      </thead>
+      <tbody id="fileList">
+        <!-- 파일 목록이 여기에 동적으로 생성됩니다 -->
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
