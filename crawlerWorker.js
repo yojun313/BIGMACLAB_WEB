@@ -51,8 +51,6 @@ pythonProcess.on('close', async (code) => {
         if (data) {
             try {
                 const parsedData = JSON.parse(data);
-                console.log(data)
-                console.log(parsedData)
                 if (Array.isArray(parsedData)) {
                     crawlDataList = parsedData;
                 } else {
@@ -66,7 +64,6 @@ pythonProcess.on('close', async (code) => {
         crawlDataList.push(newCrawlData);
 
         await fs.writeFile(crawl_history_path, JSON.stringify(crawlDataList, null, 2));
-        console.log('Crawl data saved successfully.');
     } catch (err) {
         console.error('Error reading or writing JSON data:', err);
     }
