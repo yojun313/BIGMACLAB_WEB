@@ -52,7 +52,7 @@ app.get('/tool', (req, res) => {
 });
 
 app.get('/kemkim', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'bigmaclab_manager.html'));
+    res.sendFile(path.join(__dirname, 'public', 'kemkim_manual.html'));
 });
 
 function ensureAuthenticated(req, res, next) {
