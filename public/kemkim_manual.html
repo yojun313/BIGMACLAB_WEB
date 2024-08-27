@@ -10,22 +10,29 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: #f4f7f9;
-            color: #34495e;
+            background-color: #ecf0f1;
+            color: #2c3e50;
             padding: 20px;
             box-sizing: border-box;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 40px auto;
-            padding: 30px;
+            padding: 40px;
             background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
             box-sizing: border-box;
         }
         
+        h1 {
+            font-size: 36px;
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    
         h2, h3, h4 {
             color: #2c3e50;
             padding-bottom: 10px;
@@ -33,24 +40,25 @@
         }
         
         h2 {
-            font-size: 32px;
-            border-bottom: 3px solid #ecf0f1;
+            font-size: 30px;
+            border-bottom: 3px solid #bdc3c7;
         }
         
         h3 {
-            font-size: 26px;
+            font-size: 24px;
             margin-top: 40px;
-            border-bottom: 2px solid #ecf0f1;
+            border-bottom: 2px solid #bdc3c7;
         }
         
         h4 {
-            font-size: 22px;
+            font-size: 20px;
             margin-top: 30px;
         }
-
+    
         p, ul {
             font-size: 18px;
             margin-bottom: 20px;
+            color: #34495e;
         }
         
         ul {
@@ -63,31 +71,41 @@
             margin-top: 10px;
             margin-bottom: 10px;
         }
-
+    
+        a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+    
+        a:hover {
+            color: #2980b9;
+        }
+    
         .important {
-            background-color: #fdf2f2;
-            border-left: 8px solid #e74c3c;
+            background-color: #fceceb;
+            border-left: 6px solid #e74c3c;
             padding: 20px;
             margin: 40px 0;
             border-radius: 8px;
             color: #c0392b;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         code {
-            background-color: #e5e8e9;
-            padding: 6px 10px;
+            background-color: #e0e7ef;
+            padding: 8px 12px;
             border-radius: 5px;
-            font-size: 95%;
+            font-size: 90%;
             color: #d35400;
         }
         
         button {
             background-color: #3498db;
             color: #ffffff;
-            padding: 12px 25px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 18px;
             margin-top: 20px;
@@ -102,11 +120,11 @@
         .container > ul > li {
             margin-bottom: 15px;
         }
-
+    
         .container > ul > li > ul > li {
             margin-bottom: 10px;
         }
-
+    
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -116,29 +134,41 @@
                 padding: 20px;
             }
             
+            h1 {
+                font-size: 30px;
+            }
+    
             h2 {
-                font-size: 28px;
+                font-size: 26px;
             }
             
             h3 {
-                font-size: 22px;
+                font-size: 20px;
             }
             
             p, ul {
                 font-size: 16px;
             }
-
+    
             button {
                 font-size: 16px;
                 padding: 10px 20px;
             }
         }
-    </style>
+    </style>    
 </head>
 <body>
 
     <div class="container">
-        <h2>I. KEM KIM 분석 과정</h2>
+        <h1>BIGMACLAB KEM KIM</h1>
+        <h2>목차</h2>
+        <ul>
+            <li><a href="#analysis">1. KEM KIM 분석 과정</a></li>
+            <li><a href="#process">2. MANAGER KEM KIM 연산</a></li>
+
+        </ul>
+
+        <h2 id="analysis">1. KEM KIM 분석 과정</h2>
 
         <h3>1. 데이터 로딩</h3>
         <p>분석의 첫 단계로, CSV 파일에서 텍스트 데이터를 불러옵니다. 이 데이터는 데이터의 텍스트와 각 문서의 날짜 정보로 구성됩니다.</p>
@@ -194,7 +224,7 @@
             <li><strong>결과 저장:</strong> 단어 빈도, 문서 빈도, DoV, DoD 등 분석 결과를 CSV 파일로 저장합니다. 또한, 분석 결과를 시각화한 그래프를 PNG 파일로 저장합니다.</li>
         </ul>
         </br> </br> </br>
-        <h2>II. BIGMACLAB MANAGER KEM KIM PROCESS</h2>
+        <h2 id="process">2. MANAGER KEM KIM 연산 절차</h2>
 
         <h3>1. 추적 데이터 생성</h3>
         <p>전체 KEM KIM 분석 기간에 대해서 미시적 분석을 진행합니다. 예를 들어 2010~2024년 기간의 KEM KIM 분석 시, (2010~2011), (2011~2012), ... , (2023~2024)의 KEM KIM 분석을 통해 키워드별로 기간을 따라 신호 변화를 추적합니다. 이 과정은 각 키워드의 시계열적 시그널 변화를 파악하는 데 중점을 둡니다:</p>
