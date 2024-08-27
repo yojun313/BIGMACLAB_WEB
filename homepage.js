@@ -51,6 +51,10 @@ app.get('/tool', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'bigmaclab_manager.html'));
 });
 
+app.get('/kemkim', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'bigmaclab_manager.html'));
+});
+
 function ensureAuthenticated(req, res, next) {
     console.log('Cookies:', req.cookies); // 쿠키 로깅
     const token = req.cookies.authToken;
