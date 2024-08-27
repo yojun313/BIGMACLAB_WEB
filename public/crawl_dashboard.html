@@ -344,7 +344,7 @@
                     </div>
                 `;
                 row.appendChild(processElement);
-
+                /*
                 const terminateButton = document.createElement('button');
                 terminateButton.textContent = 'Terminate';
                 terminateButton.classList.add('btn', 'btn-danger', 'mt-2');
@@ -365,6 +365,7 @@
                     }
                 });
                 processElement.querySelector('.card-body').appendChild(terminateButton);
+                */
             } else {
                 const outputElement = processElement.querySelector('.card-text small');
                 outputElement.textContent = `${data.output}`;
