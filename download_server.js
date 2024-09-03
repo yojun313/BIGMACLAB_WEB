@@ -44,7 +44,8 @@ app.get('/files', (req, res) => {
             const stats = fs.statSync(filePath); // 파일의 상태 정보 가져오기
             return {
                 name: file,
-                size: (stats.size / (1024 * 1024)).toFixed(2) + ' MB' // 파일 크기를 MB 단위로 변환
+                size: (stats.size / (1024 * 1024)).toFixed(2) + ' MB', // 파일 크기를 MB 단위로 변환
+                created: stats.birthtime.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '') // 파일 생성 시간 추가 (YYYY-MM-DD HH:MM:SS 형식)
             };
         });
 

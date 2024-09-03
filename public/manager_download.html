@@ -103,7 +103,11 @@
         const fileSizeCell = document.createElement('td');
         fileSizeCell.className = 'center';
         fileSizeCell.textContent = file.size;
-  
+
+        const fileCreatedCell = document.createElement('td');
+        fileCreatedCell.className = 'center';
+        fileCreatedCell.textContent = file.created;  // 파일 생성 시점 표시
+
         const actionCell = document.createElement('td');
         actionCell.className = 'center';
         const downloadButton = document.createElement('a');
@@ -114,6 +118,7 @@
   
         row.appendChild(fileNameCell);
         row.appendChild(fileSizeCell);
+        row.appendChild(fileCreatedCell);  // 새 열 추가
         row.appendChild(actionCell);
   
         fileList.appendChild(row);
@@ -133,6 +138,7 @@
         <tr>
           <th class="center">File Name</th>
           <th class="center">Size</th>
+          <th class="center">Released Date</th> <!-- 새로운 열 추가 -->
           <th class="center">Download</th>
         </tr>
       </thead>
