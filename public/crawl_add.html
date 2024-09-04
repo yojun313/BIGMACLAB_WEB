@@ -150,6 +150,7 @@
                 <label for="keywordInput" class="form-label">Keyword</label>
                 <input type="text" class="form-control" id="keywordInput" placeholder="키워드를 입력하세요">
             </div>
+            <!---
             <div class="mb-4">
                 <label class="form-label d-block">메일로 크롤링 데이터를 받으시겠습니까?</label>
                 <div class="form-check form-check-inline">
@@ -161,6 +162,8 @@
                     <label class="form-check-label" for="no">N</label>
                 </div>
             </div>
+            -->
+
             <div class="mb-4">
                 <div class="btn-group">
                     <button id="runBtn" class="btn btn-custom" type="button">시작</button>
@@ -241,7 +244,8 @@
             const end_day = document.getElementById('dateInput2').value;
             const option_select = document.getElementById('optionSelect').value;
             const keyword = document.getElementById('keywordInput').value;
-            const uploadToDrive = document.querySelector('input[name="yesNo"]:checked') ? document.querySelector('input[name="yesNo"]:checked').value : null;
+            //const uploadToDrive = document.querySelector('input[name="yesNo"]:checked') ? document.querySelector('input[name="yesNo"]:checked').value : null;
+            const uploadToDrive = 0
             socket.emit('crawlInfo_submit', { name, crawl_object, start_day, end_day, option_select, keyword, uploadToDrive });
         });
 
