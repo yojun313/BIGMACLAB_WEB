@@ -87,18 +87,37 @@
       padding: 20px;
       margin-bottom: 20px;
       border-radius: 10px;
+      text-align: center; /* 추가하여 텍스트를 가운데 정렬 */
     }
-
+    
     .latest-version h3 {
       margin-top: 0;
       color: #2c3e50;
+      font-size: 24px; /* 폰트 크기 살짝 키움 */
     }
-
+    
+    .latest-version p {
+      margin: 10px 0;
+      font-size: 16px; /* 폰트 크기 조정 */
+      color: #555; /* 텍스트 색상을 조금 어둡게 변경 */
+    }
+    
     .latest-version a {
-      font-weight: bold;
-      font-size: 18px;
+      display: inline-block; /* 가운데 정렬을 위한 display 속성 변경 */
+      margin-top: 15px;
+      padding: 10px 25px; /* 버튼 패딩을 살짝 키움 */
+      font-size: 18px; /* 폰트 크기 키움 */
+      background-color: #007bff; /* 버튼 색상 개선 */
+      border-radius: 5px;
+      color: white; /* 버튼 텍스트 색상 흰색 */
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
-
+    
+    .latest-version a:hover {
+      background-color: #0056b3; /* 버튼 호버 시 색상 변경 */
+    }
+  
     .toggle-button {
       cursor: pointer;
       color: #2c3e50;
