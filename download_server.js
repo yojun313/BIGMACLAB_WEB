@@ -10,7 +10,7 @@ const app = express();
 const PORT = 90;
 
 // 특정 폴더 경로 (여기에 exe 파일들이 저장되어 있어야 합니다)
-const folderPath = "D:/BIGMACLAB/BIGMACLAB_MANAGER";
+const folderPath = "D:/BIGMACLAB/BIGMACLAB_MANAGER/Output";
 
 // 정적 파일 제공을 위한 디렉토리 설정
 app.use(express.static('public'));
