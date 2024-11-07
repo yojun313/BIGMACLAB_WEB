@@ -6,7 +6,6 @@ const https = require('https');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
-const { execSync } = require('child_process');
 const app = express();
 const PORT = 90;
 
@@ -19,17 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(compression()); // GZIP 압축 활성화
-
-
-function getOriginalCreationDate(filePath) {
-    try {
-        const output = execSync(`powershell -command "(Get-Item '${filePath}').CreationTime"`);
-        return output.toString().trim();
-    } catch (error) {
-        console.error('Error getting creation date:', error);
-        return null;
-    }
-}
 
 var options = {
     key: fs.readFileSync(path.join(__dirname, 'public', 'ssl.key'), 'utf8'),
@@ -53,11 +41,11 @@ app.get('/files', (req, res) => {
         // 파일 정보 배열
         const fileInfoArray = exeFiles.map(file => {
             const filePath = path.join(folderPath, file);
-            const stats = fs.statSync(filePath);
+            const stats = fs.statSync(filePath); // 파일의 상태 정보 가져오기
             return {
                 name: file,
-                size: (stats.size / (1024 * 1024)).toFixed(2) + ' MB',
-                created: getOriginalCreationDate(filePath) || stats.birthtime.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '')
+                size: (stats.size / (1024 * 1024)).toFixed(2) + ' MB', // 파일 크기를 MB 단위로 변환
+                created: stats.birthtime.toISOString().split('T')[0] // 파일 생성 날짜만 추가 (YYYY-MM-DD 형식)
             };
         });
 
