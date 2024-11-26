@@ -6,7 +6,7 @@
   <title>BIGMACLAB MANAGER DOWNLOAD</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* 기본 라이트모드 스타일 */
+    /* 라이트 모드 기본 스타일 */
     :root {
       --background-color: #f4f4f4;
       --text-color: #333;
@@ -19,7 +19,7 @@
       --button-hover-bg-color: #3a539b;
     }
 
-    /* 다크모드 스타일 */
+    /* 다크 모드 스타일 */
     @media (prefers-color-scheme: dark) {
       :root {
         --background-color: #333;
@@ -168,6 +168,25 @@
   </style>
   <link rel="icon" type="image/x-icon" href="assets/img/bigmaclab_logo_favicon.ico" />
   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 브라우저의 다크모드 여부를 감지
+      const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+      applyDarkMode(prefersDarkMode.matches); // 초기 모드 적용
+
+      // 시스템 다크모드 설정이 변경될 때 이벤트 핸들러 추가
+      prefersDarkMode.addEventListener('change', (event) => {
+        applyDarkMode(event.matches);
+      });
+    });
+
+    function applyDarkMode(isDarkMode) {
+      if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+      } else {
+        document.body.classList.remove('dark-mode');
+      }
+    }
+
     function toggleTable() {
       const table = document.getElementById('fileTable');
       const toggleButton = document.getElementById('toggleButton');
