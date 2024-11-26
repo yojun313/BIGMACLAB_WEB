@@ -5,51 +5,33 @@
     <title>크롤링 기록</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* 기본 라이트모드 */
-        :root {
-            --background-color: #f8f9fa;
-            --text-color: #333;
-            --container-background-color: #ffffff;
-            --table-border-color: #dee2e6;
-            --header-color: #007bff;
-            --even-row-color: #f8f9fa;
-            --odd-row-color: #fff;
-            --delete-btn-bg: #dc3545;
-            --delete-btn-hover-bg: #c82333;
-        }
-
-        /* 다크모드 */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --background-color: #333;
-                --text-color: #f8f9fa;
-                --container-background-color: #444;
-                --table-border-color: #666;
-                --header-color: #66b2ff;
-                --even-row-color: #555;
-                --odd-row-color: #444;
-                --delete-btn-bg: #b02a37;
-                --delete-btn-hover-bg: #8c232d;
-            }
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
+            color: #333;
             transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: #333;
+            color: #f8f9fa;
         }
 
         .container {
             width: 90%;
             margin: 2rem auto;
-            background: var(--container-background-color);
+            background: white;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .dark-mode .container {
+            background: #444;
+            color: #f8f9fa;
         }
 
         .container:hover {
@@ -58,12 +40,16 @@
         }
 
         h1 {
-            color: var(--header-color);
+            color: #007bff;
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 2rem;
             font-weight: bold;
             text-transform: uppercase;
+        }
+
+        .dark-mode h1 {
+            color: #66b2ff;
         }
 
         table {
@@ -73,7 +59,12 @@
         }
 
         table, th, td {
-            border: 1px solid var(--table-border-color);
+            border: 1px solid #dee2e6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark-mode table, .dark-mode th, .dark-mode td {
+            border: 1px solid #666;
         }
 
         th, td {
@@ -82,23 +73,49 @@
         }
 
         th {
-            background-color: var(--header-color);
+            background-color: #007bff;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
+            cursor: pointer;
             position: relative;
         }
 
+        .dark-mode th {
+            background-color: #0056b3;
+        }
+
+        th .sort-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0;
+            margin-left: 10px;
+        }
+
+        .dark-mode th .sort-btn {
+            color: #ccc;
+        }
+
         tr:nth-child(even) {
-            background-color: var(--even-row-color);
+            background-color: #f8f9fa;
+        }
+
+        .dark-mode tr:nth-child(even) {
+            background-color: #555;
         }
 
         tr:nth-child(odd) {
-            background-color: var(--odd-row-color);
+            background-color: #fff;
+        }
+
+        .dark-mode tr:nth-child(odd) {
+            background-color: #444;
         }
 
         button.delete-btn {
-            background-color: var(--delete-btn-bg);
+            background-color: #dc3545;
             color: white;
             border: none;
             padding: 6px 12px;
@@ -108,11 +125,18 @@
         }
 
         button.delete-btn:hover {
-            background-color: var(--delete-btn-hover-bg);
+            background-color: #c82333;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .btn-group button {
-            background-color: var(--header-color);
+            background-color: #007bff;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -160,6 +184,54 @@
                 padding: 8px 16px;
             }
         }
+
+        .fixed-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: row; /* 세로에서 가로로 변경 */
+            gap: 10px;
+        }
+
+        .fixed-buttons button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
+        }
+
+        .fixed-buttons .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .dark-mode .fixed-buttons .btn-primary {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        .dark-mode .fixed-buttons .dark-mode-toggle {
+            background-color: #adb5bd;
+            color: #333;
+        }
+
+        .fixed-buttons .dark-mode-toggle {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .fixed-buttons .dark-mode-toggle:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
     </style>
 </head>
 <body>
@@ -171,12 +243,12 @@
         <table id="crawlTable" class="table table-hover">
             <thead>
                 <tr>
-                    <th>키워드</th>
-                    <th>요청자</th>
-                    <th>크롤링 대상</th>
-                    <th>크롤링 옵션</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
+                    <th>키워드<button class="sort-btn" onclick="sortTable('keyword')">🔽</button></th>
+                    <th>요청자<button class="sort-btn" onclick="sortTable('name')">🔽</button></th>
+                    <th>크롤링 대상<button class="sort-btn" onclick="sortTable('crawl_object')">🔽</button></th>
+                    <th>크롤링 옵션<button class="sort-btn" onclick="sortTable('option_select')">🔽</button></th>
+                    <th>시작일<button class="sort-btn" onclick="sortTable('start_day')">🔽</button></th>
+                    <th>종료일<button class="sort-btn" onclick="sortTable('end_day')">🔽</button></th>
                     <th>삭제</th>
                 </tr>
             </thead>
@@ -187,11 +259,157 @@
     <div class="fixed-buttons">
         <button onclick="window.location.href='/';" class="btn btn-primary">대쉬보드</button>
         <button onclick="window.location.href='/add_crawler';" class="btn btn-primary">크롤러 추가</button>
-        <!-- <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn dark-mode-toggle">Dark Mode</button> -->
+        <button id="toggleDarkMode" onclick="toggleDarkMode()" class="btn dark-mode-toggle">Dark Mode</button>
     </div>
 
     <script>
         let allData = [];
+
+        function getCrawlObjectName(crawl_object) {
+            switch(crawl_object) {
+                case '1': return 'Naver News';
+                case '2': return 'Naver Blog';
+                case '3': return 'Naver Cafe';
+                case '4': return 'YouTube';
+                case '5': return 'ChinaDaily';
+                case '6': return 'ChinaSina';
+                default: return 'Unknown';
+            }
+        }
+
+        function getOptionName(CrawlObject, option) {
+            switch(CrawlObject) {
+                case '1':
+                    switch(option) {
+                        case '1': return '기사 + 댓글';
+                        case '2': return '기사 + 댓글/대댓글';
+                        default: return 'Unknown Option';
+                    }
+                case '2':
+                    switch(option) {
+                        case '1': return '블로그 본문';
+                        case '2': return '블로그 본문 + 댓글/대댓글';
+                        default: return 'Unknown Option';
+                    }
+                case '3':
+                    switch(option) {
+                        case '1': return '카페 본문';
+                        case '2': return '카페 본문 + 댓글/대댓글';
+                        default: return 'Unknown Option';
+                    }
+                case '4':
+                    switch(option) {
+                        case '1': return '영상 정보 + 댓글/대댓글 (100개 제한)';
+                        case '2': return '영상 정보 + 댓글/대댓글 (무제한)';
+                        default: return 'Unknown Option';
+                    }
+                case '5':
+                    switch(option) {
+                        case '1': return '기사';
+                        default: return 'Unknown Option';
+                    }
+                case '6':
+                    switch(option) {
+                        case '1': return '기사';
+                        case '2': return '기사 + 댓글';
+                        default: return 'Unknown Option';
+                    }
+                default: return 'Unknown CrawlObject';
+            }
+        }
+
+        function createRequesterButtons() {
+            const requesterNames = [...new Set(allData.map(data => data.name))];
+            const buttonsContainer = document.getElementById('requester-buttons');
+
+            requesterNames.forEach(name => {
+                const button = document.createElement('button');
+                button.textContent = name;
+                button.onclick = () => {
+                    document.querySelectorAll('.btn-group button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    showRequester(name);
+                };
+                buttonsContainer.appendChild(button);
+            });
+        }
+
+        function showRequester(requesterName) {
+            const tableBody = document.querySelector('#crawlTable tbody');
+            tableBody.innerHTML = ''; // 기존 내용 제거
+            const requesterData = allData.filter(data => data.name === requesterName);
+            requesterData.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.keyword}</td>
+                    <td>${item.name}</td>
+                    <td>${getCrawlObjectName(item.crawl_object)}</td>
+                    <td>${getOptionName(item.crawl_object, item.option_select)}</td>
+                    <td>${item.start_day}</td>
+                    <td>${item.end_day}</td>
+                    <td><button class='delete-btn' onclick="deleteRecord('${requesterName}', ${index})">삭제</button></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function deleteRecord(requesterName, filteredIndex) {
+            if (confirm('삭제하시겠습니까?')) { // Confirmation dialog
+                // 실제 인덱스를 찾기 위해 필터링된 데이터를 사용하여 실제 인덱스를 찾아야 합니다.
+                const requesterData = allData.filter(data => data.name === requesterName);
+                const itemToDelete = requesterData[filteredIndex];
+        
+                // 실제 인덱스를 찾습니다.
+                const actualIndex = allData.findIndex(data => data === itemToDelete);
+                if (actualIndex !== -1) {
+                    // 서버로 DELETE 요청을 보냅니다.
+                    fetch(`/deleteHistory?index=${actualIndex}`, { method: 'DELETE' })
+                        .then(response => response.json())
+                        .then(result => {
+                            if (result.success) {
+                                // 배열에서 항목 제거
+                                allData.splice(actualIndex, 1);
+                                // 현재 활성화된 요청자의 데이터 다시 로드
+                                showRequester(requesterName);
+                            } else {
+                                alert('Error deleting the record.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error deleting the record:', error);
+                            alert('Error deleting the record.');
+                        });
+                } else {
+                    alert('Error deleting the record.');
+                }
+            }
+        }
+
+        function sortTable(column) {
+            allData.sort((a, b) => {
+                let valA = a[column];
+                let valB = b[column];
+
+                if (typeof valA === 'string') {
+                    valA = valA.toUpperCase();
+                    valB = valB.toUpperCase();
+                    if (valA < valB) return -1;
+                    if (valA > valB) return 1;
+                    return 0;
+                } else if (typeof valA === 'number') {
+                    return valA - valB;
+                } else if (!isNaN(Date.parse(valA))) {
+                    return new Date(valA) - new Date(valB);
+                } else {
+                    return 0;
+                }
+            });
+
+            const activeButton = document.querySelector('.btn-group button.active');
+            if (activeButton) {
+                showRequester(activeButton.textContent);
+            }
+        }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
@@ -205,6 +423,16 @@
             }
 
             // 데이터 불러오기
+            fetch('/getHistoryData')
+                .then(response => response.json())
+                .then(data => {
+                    allData = data;
+                    createRequesterButtons();
+                })
+                .catch(error => console.error('Error loading the data:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
             fetch('/getHistoryData')
                 .then(response => response.json())
                 .then(data => {
