@@ -416,23 +416,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // 자동 다크모드 적용
-            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (prefersDarkMode) {
-                document.body.classList.add('dark-mode');
-            }
-
-            // 데이터 불러오기
-            fetch('/getHistoryData')
-                .then(response => response.json())
-                .then(data => {
-                    allData = data;
-                    createRequesterButtons();
-                })
-                .catch(error => console.error('Error loading the data:', error));
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
             fetch('/getHistoryData')
                 .then(response => response.json())
                 .then(data => {
