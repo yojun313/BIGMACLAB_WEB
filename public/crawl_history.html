@@ -416,6 +416,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            
             fetch('/getHistoryData')
                 .then(response => response.json())
                 .then(data => {
