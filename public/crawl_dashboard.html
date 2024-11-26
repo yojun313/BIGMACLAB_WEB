@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Light mode variables */
+        /* 기본 라이트 모드 */
         :root {
             --background-color: #f8f9fa;
             --text-color: #495057;
@@ -19,30 +20,33 @@
             --btn-danger-hover-border-color: #bd2130;
             --primary-color: #007bff;
             --secondary-color: #6c757d;
-            --requester-title-color: #6c757d; /* 회색 계열 */
-            --section-border-color: #dee2e6; /* 경계선 색상 */
-            --section-background-color: #ffffff; /* 섹션 배경색 */
-            --section-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 섹션 그림자 */
+            --requester-title-color: #6c757d;
+            --section-border-color: #dee2e6;
+            --section-background-color: #ffffff;
+            --section-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Dark mode variables */
-        .dark-mode {
-            --background-color: #181a1b;
-            --text-color: #e0e0e0;
-            --card-background-color: #242526;
-            --card-shadow: rgba(255, 255, 255, 0.1);
-            --card-hover-shadow: rgba(255, 255, 255, 0.2);
-            --btn-danger-background-color: #b02a37;
-            --btn-danger-border-color: #b02a37;
-            --btn-danger-hover-background-color: #8c232d;
-            --btn-danger-hover-border-color: #7a1d26;
-            --primary-color: #0d6efd;
-            --secondary-color: #adb5bd;
-            --requester-title-color: #adb5bd; /* 어두운 모드에서 밝은 회색 */
-            --section-border-color: #343a40; /* 어두운 모드에서 경계선 색상 */
-            --section-background-color: #242526; /* 어두운 모드에서 섹션 배경색 */
-            --section-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* 어두운 모드에서 섹션 그림자 */
+        /* 다크 모드 */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #181a1b;
+                --text-color: #e0e0e0;
+                --card-background-color: #242526;
+                --card-shadow: rgba(255, 255, 255, 0.1);
+                --card-hover-shadow: rgba(255, 255, 255, 0.2);
+                --btn-danger-background-color: #b02a37;
+                --btn-danger-border-color: #b02a37;
+                --btn-danger-hover-background-color: #8c232d;
+                --btn-danger-hover-border-color: #7a1d26;
+                --primary-color: #0d6efd;
+                --secondary-color: #adb5bd;
+                --requester-title-color: #adb5bd;
+                --section-border-color: #343a40;
+                --section-background-color: #242526;
+                --section-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+            }
         }
+
 
         body {
             background-color: var(--background-color);
@@ -389,6 +393,22 @@
                 toggleButton.textContent = 'Dark Mode';
             }
         }
+                // 다크모드 초기화
+        function initializeDarkMode() {
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const body = document.body;
+
+            if (prefersDarkMode) {
+                body.classList.add('dark-mode');
+                document.getElementById('toggleDarkMode').textContent = 'Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                document.getElementById('toggleDarkMode').textContent = 'Dark Mode';
+            }
+        }
+
+        // 페이지 로드 시 다크모드 초기화
+        initializeDarkMode();
     </script>
 </body>
 </html>
