@@ -23,7 +23,7 @@ if (computername == "DESKTOP-502IMU5") {
     PORT = 80
 }
 // Z8
-else if (computername == "DESKTOP-0I9OM9K") {
+else if (computername == "BIGMACLAB-Z8") {
     crawler_folder_path = 'D:/BIGMACLAB/CRAWLER'
     PORT = 81
 }
