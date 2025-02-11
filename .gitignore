@@ -6,3 +6,11 @@ __pycache__/
 
 #nohup.out
 nohup.out
+# PyCharm 관련 파일 및 폴더 무시
+.idea/
+*.iml
+workspace.xml
+tasks.xml
+usage.statistics.xml
+datalore/
+shelf/
